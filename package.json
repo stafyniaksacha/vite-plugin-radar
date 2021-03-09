@@ -1,0 +1,34 @@
+{
+  "name": "vite-plugin-radar",
+  "version": "0.0.1",
+  "description": "Analitycs loader for vite",
+  "author": "stafyniaksacha",
+  "repository": "stafyniaksacha/vite-plugin-radar",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "npm run build -- --watch",
+    "example:dev": "npm -C example run dev",
+    "example:build": "npm -C example run build",
+    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "lint": "eslint --ext .ts ./src",
+    "lint:fix": "eslint --fix --ext .ts ./src"
+  },
+  "peerDependencies": {
+    "vite": "^2.0.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.4.3",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "eslint": "^7.21.0",
+    "rollup": "^2.40.0",
+    "tsup": "^4.6.1",
+    "typescript": "^4.2.3",
+    "vite": "^2.0.0"
+  }
+}
