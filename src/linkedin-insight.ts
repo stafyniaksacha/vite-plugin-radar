@@ -8,7 +8,6 @@ declare global {
 
 export type LinkedinInsightProperty = {
   id: string
-  // parameters?: object
 }
 
 export type LinkedinInsightOptions = LinkedinInsightProperty | LinkedinInsightProperty[]

@@ -8,9 +8,6 @@ declare global {
 
 type GoogleTagManagerProperty = {
   id: string
-  // disable?: boolean
-  // config?: GAConfiguration
-  // persistentValues?: Record<string, string | number | boolean>
 }
 
 export type GoogleTagManagerOptions = GoogleTagManagerProperty | GoogleTagManagerProperty[]

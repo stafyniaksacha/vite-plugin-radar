@@ -18,6 +18,7 @@ import ViteRadar from 'vite-plugin-radar'
 export default {
   plugins: [
     ViteRadar({
+      // Google Analytics tag injection
       analytics: {
         id: 'G-XXXXX',
       },
@@ -42,7 +43,7 @@ export default {
        */
       enableDev: true,
 
-      // Google Analytics
+      // Google Analytics (multiple tag can be set with an array)
       analytics: [
         {
           /**
@@ -89,28 +90,64 @@ export default {
         },
       ],
 
-      // Google Tag Manager
+      // Google Tag Manager (multiple tag can be set with an array)
       gtm: [
+        {
+          id: 'GTM-XXXXX',
+        }
       ],
 
-      // Facebook Pixel
+      // Facebook Pixel (multiple tag can be set with an array)
       pixel: [
+        {
+          id: 'XXXXXXX',
+        }
       ],
 
-      // Linkedin Insight
+      // Linkedin Insight (multiple tag can be set with an array)
       linkedin: [
+        {
+          id: 'XXXXXXX',
+        }
       ],
 
-      // Baidu Tongji
+      // Baidu Tongji (multiple tag can be set with an array)
       tongji: [
+        {
+          id: 'XXXXXXX',
+        }
       ],
 
-      // Yandex Metrica
+      // Yandex Metrica (multiple tag can be set with an array)
       metrica: [
+        {
+          id: 'XXXXXXX',
+
+          /**
+           * You can configure all settings provided by metrika here
+           * @see https://yandex.com/support/metrica/code/counter-initialize.html
+           */
+          config: {
+            defer: true,
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            childIframe: true,
+            webvisor: true,
+            trackHash: true,
+            triggerEvent: true,
+            ecommerce: 'dataLayer',
+            trustedDomains: ['example.com'],
+            type: 0,
+            params: {},
+            userParams: {}
+          }
+        }
       ],
 
-      // Microsoft Analytics
+      // Microsoft Analytics (only one tag can be set)
       microsoft: {
+        id: 'XXXXX'
       },
     })
   ],

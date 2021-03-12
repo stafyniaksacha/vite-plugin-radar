@@ -8,7 +8,6 @@ declare global {
 
 export type BaiduTongjiProperty = {
   id: string
-  parameters?: object
 }
 
 export type BaiduTongjiOptions = BaiduTongjiProperty | BaiduTongjiProperty[]
