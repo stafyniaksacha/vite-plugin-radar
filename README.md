@@ -155,7 +155,7 @@ export default {
 ```
 
 
-## Ressources
+## Resources
 
 - https://developers.google.com/analytics/devguides/collection/ga4
 - https://developers.google.com/tag-manager/quickstart
