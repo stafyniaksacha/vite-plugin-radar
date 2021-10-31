@@ -11,6 +11,7 @@ type GAConfiguration = {
   send_page_view?: boolean
   allow_google_signals?: boolean
   allow_ad_personalization_signals?: boolean
+  transport_url?: string
   cookie_domain?: string
   cookie_expires?: number
   cookie_prefix?: string
@@ -20,6 +21,7 @@ type GAConfiguration = {
 
 type GoogleAnaliticsProperty = {
   id: string
+  source?: string
   disable?: boolean
   config?: GAConfiguration
   persistentValues?: Record<string, string | number | boolean>
@@ -27,7 +29,8 @@ type GoogleAnaliticsProperty = {
 
 export type GoogleAnaliticsOptions = GoogleAnaliticsProperty | GoogleAnaliticsProperty[]
 
-const GTagBase = 'https://www.googletagmanager.com/gtag/js'
+const GTagSource = 'https://www.googletagmanager.com'
+const GTagBase = (source: string) => `${source}/gtag/js`
 
 function injectTag(options: GoogleAnaliticsOptions): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
@@ -89,7 +92,7 @@ function injectTag(options: GoogleAnaliticsOptions): HtmlTagDescriptor[] {
   tags.push({
     tag: 'script',
     attrs: {
-      src: `${GTagBase}?id=${mainProperty.id}`,
+      src: `${GTagBase(mainProperty?.source || GTagSource)}?id=${mainProperty.id}`,
       async: true,
     },
   })
