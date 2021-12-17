@@ -3,6 +3,7 @@ import { Plugin, HtmlTagDescriptor, ResolvedConfig } from 'vite'
 import injectGoogleAnalytics, { GoogleAnaliticsOptions } from './google-analytics'
 import injectGoogleTagManager, { GoogleTagManagerOptions } from './google-tag-manager'
 import injectPixel, { FacebookPixelOption } from './facebook-pixel'
+import injectRetargeting, { VKRetargetingOption } from './vk-retargeting'
 import injectLinkedinInsight, { LinkedinInsightOptions } from './linkedin-insight'
 import injectBaiduTongji, { BaiduTongjiOptions } from './baidu-tongji'
 import injectYandexMetrica, { YandexMetricaOptions } from './yandex-metrica'
@@ -17,6 +18,7 @@ export type VitePluginRadarOptions = {
   tongji?: BaiduTongjiOptions
   metrica?: YandexMetricaOptions
   microsoft?: MicrosoftAdvertisingOptions
+  retargeting?: VKRetargetingOption
 }
 
 export function VitePluginRadar({
@@ -28,6 +30,7 @@ export function VitePluginRadar({
   tongji,
   metrica,
   microsoft,
+  retargeting,
 }: VitePluginRadarOptions): Plugin {
   let viteConfig: ResolvedConfig
 
@@ -53,6 +56,9 @@ export function VitePluginRadar({
 
       if (pixel)
         tags.push(...injectPixel(pixel))
+
+      if (retargeting)
+        tags.push(...injectRetargeting(retargeting))
 
       if (tongji)
         tags.push(...injectBaiduTongji(tongji))
