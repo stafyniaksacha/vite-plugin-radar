@@ -38,15 +38,15 @@ function injectTag(options: VKRetargetingOption): HtmlTagDescriptor[] {
   let template = ''
   let noscriptTemplate = ''
 
-  template += '!function()'
+  template += '!(function()'
   template += '{var t=document.createElement("script");t.type="text/javascript",'
-  template += `t.async=!O,t.src="${RetargetingBase}",t.onload=function(){`
+  template += `t.async=!0,t.src="${RetargetingBase}",t.onload=function(){`
 
   for (const property of properties) {
     template += `VK.Retargeting.Init("${property.id}"),`
     noscriptTemplate += `<img height="1" width="1" style="display:none" src="${NoScriptBase}?p=${property.id}"/>\n`
   }
-  template += 'VK.Retargeting.Hit()},document.head.appendChild(t))();'
+  template += 'VK.Retargeting.Hit()},document.head.appendChild(t);})();'
 
   tags.push({
     tag: 'script',
