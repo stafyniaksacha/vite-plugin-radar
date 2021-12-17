@@ -43,10 +43,10 @@ function injectTag(options: VKRetargetingOption): HtmlTagDescriptor[] {
   template += `t.async=!O,t.src="${RetargetingBase}",t.onload=function(){`
 
   for (const property of properties) {
-    template += `VK Retargeting.Init("${property.id}"),`
+    template += `VK.Retargeting.Init("${property.id}"),`
     noscriptTemplate += `<img height="1" width="1" style="display:none" src="${NoScriptBase}?p=${property.id}"/>\n`
   }
-  template += 'VK.Retargeting Hit()},document.head.appendChild(t))();'
+  template += 'VK.Retargeting.Hit()},document.head.appendChild(t))();'
 
   tags.push({
     tag: 'script',
