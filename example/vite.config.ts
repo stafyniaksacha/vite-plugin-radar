@@ -21,7 +21,10 @@ export default defineConfig({
         id: 'GTM-XXXX',
       },
       pixel: {
-        id: '1234567890',
+        id: 'XXXXXXXXXX',
+      },
+      retargeting: {
+        id: 'VK-RTRG-XXXXXX-XXXXX',
       },
     }),
   ],

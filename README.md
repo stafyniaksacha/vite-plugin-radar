@@ -104,6 +104,13 @@ export default {
         }
       ],
 
+      // VK Retargeting (multiple tag can be set with an array)
+      retargeting: [
+        {
+          id: 'VK-RTRG-XXXXXX-XXXXX',
+        }
+      ],
+
       // Linkedin Insight (multiple tag can be set with an array)
       linkedin: [
         {
@@ -163,4 +170,5 @@ export default {
 - https://www.linkedin.com/help/lms/answer/a427660
 - https://yandex.com/support/metrica/quick-start.html
 - https://tongji.baidu.com/open/api/more
+- https://vk.com/faq14080
 - https://help.ads.microsoft.com/#apex/ads/en/ext60065/
