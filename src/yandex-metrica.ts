@@ -61,7 +61,7 @@ function injectTag(options: YandexMetricaOptions): HtmlTagDescriptor[] {
     if (property.config)
       template += `ym(${property.id}, ${JSON.stringify(property.config)});\n`
     else
-      template += `ym(${property.id}});\n`
+      template += `ym(${property.id});\n`
 
     noscriptTemplate += `<img src="${NoScriptBase}${property.id}" style="position:absolute;left:-9999px;" alt="" />`
   }
