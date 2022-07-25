@@ -17,7 +17,7 @@ const NoScriptBase = 'https://px.ads.linkedin.com/collect/'
 
 function injectTag(options: LinkedinInsightOptions): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
-  const properties: LinkedinInsightProperty[] = []
+  let properties: LinkedinInsightProperty[] = []
 
   if (Array.isArray(options)) {
     properties.push(
@@ -27,6 +27,8 @@ function injectTag(options: LinkedinInsightOptions): HtmlTagDescriptor[] {
   else {
     properties.push(options)
   }
+  
+  properties = properties.filter(property => Boolean(property.id))
 
   if (!properties.length)
     return tags

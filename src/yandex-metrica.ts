@@ -34,7 +34,7 @@ const NoScriptBase = 'https://mc.yandex.ru/watch/'
 
 function injectTag(options: YandexMetricaOptions): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
-  const properties: YandexMetricaProperty[] = []
+  let properties: YandexMetricaProperty[] = []
 
   if (Array.isArray(options)) {
     properties.push(
@@ -44,6 +44,8 @@ function injectTag(options: YandexMetricaOptions): HtmlTagDescriptor[] {
   else {
     properties.push(options)
   }
+
+  properties = properties.filter(property => Boolean(property.id))
 
   if (!properties.length)
     return tags

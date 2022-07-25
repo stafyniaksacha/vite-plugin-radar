@@ -16,7 +16,7 @@ const TongjiBase = 'https://hm.baidu.com/hm.js'
 
 function injectTag(options: BaiduTongjiOptions): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
-  const properties: BaiduTongjiProperty[] = []
+  let properties: BaiduTongjiProperty[] = []
 
   if (Array.isArray(options)) {
     properties.push(
@@ -26,6 +26,8 @@ function injectTag(options: BaiduTongjiOptions): HtmlTagDescriptor[] {
   else {
     properties.push(options)
   }
+  
+  properties = properties.filter(property => Boolean(property.id))
 
   if (!properties.length)
     return tags

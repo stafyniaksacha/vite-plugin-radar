@@ -18,7 +18,7 @@ const NSBase = 'https://www.googletagmanager.com/ns.html'
 /// https://developers.google.com/tag-manager/quickstart
 function injectTag(options: GoogleTagManagerOptions): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
-  const properties: GoogleTagManagerProperty[] = []
+  let properties: GoogleTagManagerProperty[] = []
 
   if (Array.isArray(options)) {
     properties.push(
@@ -28,6 +28,8 @@ function injectTag(options: GoogleTagManagerOptions): HtmlTagDescriptor[] {
   else {
     properties.push(options)
   }
+
+  properties = properties.filter(property => Boolean(property.id))
 
   if (!properties.length)
     return tags

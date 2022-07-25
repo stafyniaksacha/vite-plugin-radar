@@ -20,7 +20,7 @@ const NoScriptBase = 'https://vk.com/rtrg'
 
 function injectTag(options: VKRetargetingOption): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
-  const properties: VKRetargeting[] = []
+  let properties: VKRetargeting[] = []
 
   if (Array.isArray(options)) {
     properties.push(
@@ -30,6 +30,8 @@ function injectTag(options: VKRetargetingOption): HtmlTagDescriptor[] {
   else {
     properties.push(options)
   }
+
+  properties = properties.filter(property => Boolean(property.id))
 
   if (!properties.length)
     return tags

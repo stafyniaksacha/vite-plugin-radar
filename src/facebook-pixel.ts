@@ -20,7 +20,7 @@ const NoScriptBase = 'https://www.facebook.com/tr'
 
 function injectTag(options: FacebookPixelOption): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
-  const properties: FacebookPixel[] = []
+  let properties: FacebookPixel[] = []
 
   if (Array.isArray(options)) {
     properties.push(
@@ -30,6 +30,8 @@ function injectTag(options: FacebookPixelOption): HtmlTagDescriptor[] {
   else {
     properties.push(options)
   }
+  
+  properties = properties.filter(property => Boolean(property.id))
 
   if (!properties.length)
     return tags
