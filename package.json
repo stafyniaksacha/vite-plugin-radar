@@ -20,7 +20,7 @@
     "lint:fix": "eslint --fix --ext .ts ./src"
   },
   "peerDependencies": {
-    "vite": "^2.0.0 || ^3.0.0"
+    "vite": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.25.2",
