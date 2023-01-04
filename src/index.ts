@@ -8,6 +8,7 @@ import injectLinkedinInsight, { LinkedinInsightOptions } from './linkedin-insigh
 import injectBaiduTongji, { BaiduTongjiOptions } from './baidu-tongji'
 import injectYandexMetrica, { YandexMetricaOptions } from './yandex-metrica'
 import injectMicrosoftAdvertising, { MicrosoftAdvertisingOptions } from './microsoft-advertising'
+import injectHotjar, { HotjarOptions } from './hotjar';
 
 export type VitePluginRadarOptions = {
   enableDev?: boolean
@@ -18,7 +19,8 @@ export type VitePluginRadarOptions = {
   tongji?: BaiduTongjiOptions
   metrica?: YandexMetricaOptions
   microsoft?: MicrosoftAdvertisingOptions
-  retargeting?: VKRetargetingOption
+  retargeting?: VKRetargetingOption,
+  hotjar?: HotjarOptions,
 }
 
 export function VitePluginRadar({
@@ -31,6 +33,7 @@ export function VitePluginRadar({
   metrica,
   microsoft,
   retargeting,
+  hotjar,
 }: VitePluginRadarOptions): Plugin {
   let viteConfig: ResolvedConfig
 
@@ -71,6 +74,9 @@ export function VitePluginRadar({
 
       if (microsoft)
         tags.push(...injectMicrosoftAdvertising(microsoft))
+
+      if (hotjar)
+        tags.push(...injectHotjar(hotjar))
 
       return tags
     },
