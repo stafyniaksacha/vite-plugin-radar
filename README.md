@@ -156,6 +156,11 @@ export default {
       microsoft: {
         id: 'XXXXX'
       },
+
+      // Hotjar Analytics (only one tag can be set)
+      hotjar: {
+        id: 1000000
+      },
     })
   ],
 }
@@ -172,3 +177,4 @@ export default {
 - https://tongji.baidu.com/open/api/more
 - https://vk.com/faq14080
 - https://help.ads.microsoft.com/#apex/ads/en/ext60065/
+- https://help.hotjar.com/hc/en-us/articles/115009336727-How-to-Install-Your-Hotjar-Tracking-Code
