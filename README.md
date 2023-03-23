@@ -13,11 +13,11 @@ npm i --save-dev vite-plugin-radar # yarn add -D vite-plugin-radar
 
 ```ts
 // vite.config.js
-import ViteRadar from 'vite-plugin-radar'
+import { VitePluginRadar } from 'vite-plugin-radar'
 
 export default {
   plugins: [
-    ViteRadar({
+    VitePluginRadar({
       // Google Analytics tag injection
       analytics: {
         id: 'G-XXXXX',
@@ -32,11 +32,11 @@ export default {
 
 ```ts
 // vite.config.js
-import ViteRadar from 'vite-plugin-radar'
+import { VitePluginRadar } from 'vite-plugin-radar'
 
 export default {
   plugins: [
-    ViteRadar({
+    VitePluginRadar({
       /**
        * enable or disable scripts injection in development
        * default: false
