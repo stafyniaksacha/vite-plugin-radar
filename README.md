@@ -50,7 +50,7 @@ export default {
            * Measurement id
            */
           id: 'G-XXXXX',
-          
+
           /**
            * disable tracking for this measurement 
            *   window['ga-disable-MEASUREMENT_ID'] = true
@@ -63,7 +63,6 @@ export default {
            * @see https://developers.google.com/analytics/devguides/collection/ga4/cookies-user-id
            * @see https://developers.google.com/analytics/devguides/collection/ga4/disable-page-view
            * @see https://developers.google.com/analytics/devguides/collection/ga4/display-features
-           * @see 
            */
           config: {
             cookie_domain: 'auto',
@@ -74,6 +73,17 @@ export default {
             send_page_view: true,
             allow_google_signals: true,
             allow_ad_personalization_signals: true,
+          },
+
+          /**
+           * Set default values for "consent mode"
+           * @see https://developers.google.com/tag-platform/devguides/consent
+           * @see https://support.google.com/analytics/answer/9976101
+           */
+          consentDefaults: {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            wait_for_update: 500
           },
 
           /**
