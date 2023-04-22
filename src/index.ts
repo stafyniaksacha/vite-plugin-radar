@@ -9,6 +9,7 @@ import injectBaiduTongji, { BaiduTongjiOptions } from './baidu-tongji'
 import injectYandexMetrica, { YandexMetricaOptions } from './yandex-metrica'
 import injectMicrosoftAdvertising, { MicrosoftAdvertisingOptions } from './microsoft-advertising'
 import injectHotjar, { HotjarOptions } from './hotjar';
+import injectFullStory, { FullStoryOptions } from './full-story'
 
 export type VitePluginRadarOptions = {
   enableDev?: boolean
@@ -21,6 +22,7 @@ export type VitePluginRadarOptions = {
   microsoft?: MicrosoftAdvertisingOptions
   retargeting?: VKRetargetingOption,
   hotjar?: HotjarOptions,
+  fullStory?: FullStoryOptions,
 }
 
 export function VitePluginRadar({
@@ -34,6 +36,7 @@ export function VitePluginRadar({
   microsoft,
   retargeting,
   hotjar,
+  fullStory,
 }: VitePluginRadarOptions): Plugin {
   let viteConfig: ResolvedConfig
 
@@ -77,6 +80,9 @@ export function VitePluginRadar({
 
       if (hotjar)
         tags.push(...injectHotjar(hotjar))
+
+      if (fullStory)
+        tags.push(...injectFullStory(fullStory))
 
       return tags
     },

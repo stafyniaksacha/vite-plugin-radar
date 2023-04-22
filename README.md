@@ -171,6 +171,14 @@ export default {
       hotjar: {
         id: 1000000
       },
+
+      // Full story Analytics (only one tag can be set)
+      fullStory: {
+        org: 'X-XXXXXX-XXX',
+        host: 'fullstory.com',
+        script: 'edge.fullstory.com/s/fs.js',
+        namespace: 'FS',
+      }
     })
   ],
 }
@@ -188,3 +196,4 @@ export default {
 - https://vk.com/faq14080
 - https://help.ads.microsoft.com/#apex/ads/en/ext60065/
 - https://help.hotjar.com/hc/en-us/articles/115009336727-How-to-Install-Your-Hotjar-Tracking-Code
+- https://help.fullstory.com/hc/en-us/articles/360020623514-Installing-the-FullStory-Script#:~:text=Install%20your%20snippet%20directly%20on,closing%20tag.
