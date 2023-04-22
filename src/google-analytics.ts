@@ -19,6 +19,16 @@ type GAConfiguration = {
   cookie_flags?: string
 }
 
+type GAConsentDefaults = {
+  ad_storage?: 'granted' | 'denied'
+  analytics_storage?: 'granted' | 'denied'
+  wait_for_update?: number
+}
+
+type GoogleAnaliticsMainProperty = GoogleAnaliticsProperty & {
+  consentDefaults?: GAConsentDefaults
+}
+
 type GoogleAnaliticsProperty = {
   id: string
   source?: string
@@ -27,7 +37,7 @@ type GoogleAnaliticsProperty = {
   persistentValues?: Record<string, string | number | boolean>
 }
 
-export type GoogleAnaliticsOptions = GoogleAnaliticsProperty | GoogleAnaliticsProperty[]
+export type GoogleAnaliticsOptions = GoogleAnaliticsMainProperty | [GoogleAnaliticsMainProperty, ...GoogleAnaliticsProperty[]]
 
 const GTagSource = 'https://www.googletagmanager.com'
 const GTagBase = (source: string) => `${source}/gtag/js`
@@ -50,7 +60,7 @@ function injectTag(options: GoogleAnaliticsOptions): HtmlTagDescriptor[] {
   if (!properties.length)
     return tags
 
-  const mainProperty = properties.shift()
+  const mainProperty = properties.shift() as GoogleAnaliticsMainProperty
 
   if (!mainProperty)
     return tags
@@ -74,6 +84,11 @@ function injectTag(options: GoogleAnaliticsOptions): HtmlTagDescriptor[] {
 
   // tag user time
   template += 'gtag(\'js\', new Date());\n'
+
+  // register default values for "consent mode"
+  // must be before config calls
+  if (mainProperty.consentDefaults)
+    template += `gtag('consent', 'default', ${JSON.stringify(mainProperty.consentDefaults)});\n`
 
   // register property config
   for (const property of [mainProperty, ...properties]) {
