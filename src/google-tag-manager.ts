@@ -6,14 +6,23 @@ declare global {
   }
 }
 
-type GoogleTagManagerProperty = {
+interface GoogleTagManagerMainProperty {
   id: string
 }
 
+interface GoogleTagManagerDefaultProperty {
+  gtmBase?: string
+  nsBase?: string
+}
+
+type GoogleTagManagerProperty = GoogleTagManagerMainProperty & GoogleTagManagerDefaultProperty
+
 export type GoogleTagManagerOptions = GoogleTagManagerProperty | GoogleTagManagerProperty[]
 
-const GTMBase = 'https://www.googletagmanager.com/gtm.js'
-const NSBase = 'https://www.googletagmanager.com/ns.html'
+const defaultOptions: GoogleTagManagerDefaultProperty = {
+  gtmBase: 'https://www.googletagmanager.com/gtm.js',
+  nsBase: 'https://www.googletagmanager.com/ns.html',
+}
 
 /// https://developers.google.com/tag-manager/quickstart
 function injectTag(options: GoogleTagManagerOptions): HtmlTagDescriptor[] {
@@ -22,11 +31,17 @@ function injectTag(options: GoogleTagManagerOptions): HtmlTagDescriptor[] {
 
   if (Array.isArray(options)) {
     properties.push(
-      ...options,
+      ...options.map(options => ({
+        ...defaultOptions,
+        ...options,
+      })),
     )
   }
   else {
-    properties.push(options)
+    properties.push({
+      ...defaultOptions,
+      ...options,
+    })
   }
 
   properties = properties.filter(property => Boolean(property.id))
@@ -54,14 +69,14 @@ function injectTag(options: GoogleTagManagerOptions): HtmlTagDescriptor[] {
     tags.push({
       tag: 'script',
       attrs: {
-        src: `${GTMBase}?id=${property.id}`,
+        src: `${property.gtmBase}?id=${property.id}`,
         async: true,
       },
     })
     tags.push({
       tag: 'noscript',
       injectTo: 'body-prepend',
-      children: `<iframe src="${NSBase}?id=${property.id}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
+      children: `<iframe src="${property.nsBase}?id=${property.id}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
     })
   }
 

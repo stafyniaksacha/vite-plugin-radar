@@ -17,9 +17,16 @@ export default defineConfig({
       analytics: {
         id: 'G-XXX',
       },
-      gtm: {
-        id: 'GTM-XXXX',
-      },
+      gtm: [
+        {
+          id: 'GTM-XXXX',
+        },
+        {
+          id: 'GTM-XXXX',
+          gtmBase: 'https://www.custom.com/gtm.js',
+          nsBase: 'https://www.custom.com/ns.html',
+        },
+      ],
       pixel: {
         id: 'XXXXXXXXXX',
       },
