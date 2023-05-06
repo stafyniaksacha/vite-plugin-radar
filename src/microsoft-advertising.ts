@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-export type MicrosoftAdvertisingOptions = {
+export interface MicrosoftAdvertisingOptions {
   id: string
 }
 

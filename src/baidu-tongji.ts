@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-export type BaiduTongjiProperty = {
+export interface BaiduTongjiProperty {
   id: string
 }
 
@@ -26,7 +26,7 @@ function injectTag(options: BaiduTongjiOptions): HtmlTagDescriptor[] {
   else {
     properties.push(options)
   }
-  
+
   properties = properties.filter(property => Boolean(property.id))
 
   if (!properties.length)

@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-export type VKRetargeting = {
+export interface VKRetargeting {
   /**
    * Retargeting tag
    */

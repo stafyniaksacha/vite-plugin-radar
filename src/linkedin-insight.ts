@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-export type LinkedinInsightProperty = {
+export interface LinkedinInsightProperty {
   id: string
 }
 
@@ -27,7 +27,7 @@ function injectTag(options: LinkedinInsightOptions): HtmlTagDescriptor[] {
   else {
     properties.push(options)
   }
-  
+
   properties = properties.filter(property => Boolean(property.id))
 
   if (!properties.length)

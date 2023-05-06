@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-export type HotjarOptions = {
+export interface HotjarOptions {
   id: number
 }
 

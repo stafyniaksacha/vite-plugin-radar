@@ -18,19 +18,24 @@
     "prepack": "npm run build",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "lint": "eslint --ext .ts ./src",
-    "lint:fix": "eslint --fix --ext .ts ./src"
+    "lint:fix": "eslint --fix --ext .ts ./src",
+    "release": "run-s lint release:*",
+    "release:standard-version": "standard-version",
+    "release:publish": "git push --follow-tags origin main && npm publish"
   },
   "peerDependencies": {
     "vite": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.25.2",
+    "@antfu/eslint-config": "^0.38.6",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.30.7",
     "eslint": "^8.1.0",
-    "rollup": "^2.58.3",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^3.21.5",
+    "standard-version": "^9.5.0",
     "tsup": "^6.1.3",
-    "typescript": "^4.4.4",
-    "vite": "^3.0.3"
+    "typescript": "^5.0.4",
+    "vite": "^4.3.5"
   }
 }

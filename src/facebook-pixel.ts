@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-export type FacebookPixel = {
+export interface FacebookPixel {
   /**
    * Pixel tag
    */
@@ -30,7 +30,7 @@ function injectTag(options: FacebookPixelOption): HtmlTagDescriptor[] {
   else {
     properties.push(options)
   }
-  
+
   properties = properties.filter(property => Boolean(property.id))
 
   if (!properties.length)

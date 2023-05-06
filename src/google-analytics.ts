@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-type GAConfiguration = {
+interface GAConfiguration {
   send_page_view?: boolean
   allow_google_signals?: boolean
   allow_ad_personalization_signals?: boolean
@@ -19,7 +19,7 @@ type GAConfiguration = {
   cookie_flags?: string
 }
 
-type GAConsentDefaults = {
+interface GAConsentDefaults {
   ad_storage?: 'granted' | 'denied'
   analytics_storage?: 'granted' | 'denied'
   wait_for_update?: number
@@ -29,7 +29,7 @@ type GoogleAnaliticsMainProperty = GoogleAnaliticsProperty & {
   consentDefaults?: GAConsentDefaults
 }
 
-type GoogleAnaliticsProperty = {
+interface GoogleAnaliticsProperty {
   id: string
   source?: string
   disable?: boolean

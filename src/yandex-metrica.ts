@@ -5,7 +5,7 @@ declare global {
     ym: Function
   }
 }
-type MetricaConfiguration = {
+interface MetricaConfiguration {
   defer?: boolean
   clickmap?: boolean
   trackLinks?: boolean
@@ -21,7 +21,7 @@ type MetricaConfiguration = {
   userParams?: Record<string, string | number | boolean>
 }
 
-export type YandexMetricaProperty = {
+export interface YandexMetricaProperty {
   id: string
   config?: MetricaConfiguration
 }
