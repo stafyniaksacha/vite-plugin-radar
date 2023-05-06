@@ -104,6 +104,10 @@ export default {
       gtm: [
         {
           id: 'GTM-XXXXX',
+          
+          // You can set custom source for gtm script and noscript
+          gtmBase: 'https://www.custom.com/gtm.js',
+          nsBase: 'https://www.custom.com/ns.html',
         }
       ],
 
