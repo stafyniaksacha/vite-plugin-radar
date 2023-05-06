@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.7.0...v0.8.0) (2023-05-06)
+
+
+### Features
+
+* add support for google analytics consent mode defaults ([1241b78](https://github.com/stafyniaksacha/vite-plugin-radar/commit/1241b789eb77fa90961c65babdea6f614fc10e75))
+* **gtm:** custom source support ([#16](https://github.com/stafyniaksacha/vite-plugin-radar/issues/16)) ([8a66003](https://github.com/stafyniaksacha/vite-plugin-radar/commit/8a6600328cc6e0a9b3a8f4d231ba4d4daba5fbc5))
+
 ## [0.7.0](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.6.0...v0.7.0) (2023-01-04)
 
 
