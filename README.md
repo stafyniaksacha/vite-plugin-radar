@@ -1,7 +1,7 @@
 # vite-plugin-radar
 
 Analytics loader for vite that support Google Analytics, Google Tag Manager, Facebook Pixel, 
-Linkedin Insight, Yandex Metrica, Baidu Tongji and Microsoft Advertising
+Linkedin Insight, Yandex Metrica, Baidu Tongji, Microsoft Advertising and Unbounce
 
 ### Install
 
@@ -182,6 +182,14 @@ export default {
         host: 'fullstory.com',
         script: 'edge.fullstory.com/s/fs.js',
         namespace: 'FS',
+      },
+        
+      // Unbounce conversion analytics
+      // Can also be enabled like so: `unbounce: true`
+      unbounce: {
+        enabled: true, // or false
+        // You can set a custom location or use the default one for unbounce
+        script: 'd3pkntwtp2ukl5.cloudfront.net/uba.js'
       }
     })
   ],
@@ -201,3 +209,4 @@ export default {
 - https://help.ads.microsoft.com/#apex/ads/en/ext60065/
 - https://help.hotjar.com/hc/en-us/articles/115009336727-How-to-Install-Your-Hotjar-Tracking-Code
 - https://help.fullstory.com/hc/en-us/articles/360020623514-Installing-the-FullStory-Script#:~:text=Install%20your%20snippet%20directly%20on,closing%20tag.
+- https://documentation.unbounce.com/hc/en-us/articles/203879180-Setting-Conversion-Goals-in-the-Classic-Builder
