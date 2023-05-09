@@ -19,6 +19,8 @@ import type { HotjarOptions } from './hotjar'
 import injectHotjar from './hotjar'
 import type { FullStoryOptions } from './full-story'
 import injectFullStory from './full-story'
+import type { TikTokPixelOptions } from './tiktok-pixel'
+import injectTikTokPixel from './tiktok-pixel'
 
 export interface VitePluginRadarOptions {
   enableDev?: boolean
@@ -32,6 +34,7 @@ export interface VitePluginRadarOptions {
   retargeting?: VKRetargetingOption
   hotjar?: HotjarOptions
   fullStory?: FullStoryOptions
+  tiktok?: TikTokPixelOptions
 }
 
 export function VitePluginRadar({
@@ -46,6 +49,7 @@ export function VitePluginRadar({
   retargeting,
   hotjar,
   fullStory,
+  tiktok,
 }: VitePluginRadarOptions): Plugin {
   let viteConfig: ResolvedConfig
 
@@ -92,6 +96,9 @@ export function VitePluginRadar({
 
       if (fullStory)
         tags.push(...injectFullStory(fullStory))
+
+      if (tiktok)
+        tags.push(...injectTikTokPixel(tiktok))
 
       return tags
     },
