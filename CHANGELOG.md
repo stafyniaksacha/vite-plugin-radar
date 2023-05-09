@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.9.0](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.8.0...v0.9.0) (2023-05-09)
+
+
+### Features
+
+* add TikTok Pixel analytics ([#18](https://github.com/stafyniaksacha/vite-plugin-radar/issues/18)) ([b7243fe](https://github.com/stafyniaksacha/vite-plugin-radar/commit/b7243fef455f95b3377b811342623ba9f07da481))
+* add Unbounce conversion analytics ([#17](https://github.com/stafyniaksacha/vite-plugin-radar/issues/17)) ([2a006ae](https://github.com/stafyniaksacha/vite-plugin-radar/commit/2a006ae87baab7a7403692ead6fc893d4384e15a))
+
 ## [0.8.0](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.7.0...v0.8.0) (2023-05-06)
 
 
