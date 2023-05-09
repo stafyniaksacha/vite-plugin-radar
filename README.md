@@ -190,7 +190,14 @@ export default {
         enabled: true, // or false
         // You can set a custom location or use the default one for unbounce
         script: 'd3pkntwtp2ukl5.cloudfront.net/uba.js'
-      }
+      },
+
+      // TikTok Pixel Analytics (only one tag can be set)
+      tiktok: {
+        id: 1000000,
+        // You can set a custom location or use the default one for TikTok
+        script: 'analytics.tiktok.com/i18n/pixel/events.js'
+      },
     })
   ],
 }
