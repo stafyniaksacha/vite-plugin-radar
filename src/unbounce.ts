@@ -21,7 +21,7 @@ function injectTag(options: UnbounceOptions | true): HtmlTagDescriptor[] {
   template += '(function () {'
   template += 'var ub_script = document.createElement("script");'
   template += 'ub_script.type = "text/javascript";'
-  template += `ub_script.src = "https:" == document.location.protocol ? "https://" : "http://") + "${sourceLocation}";`
+  template += `ub_script.src = ("https:" == document.location.protocol ? "https://" : "http://") + "${sourceLocation}";`
   template += 'var s = document.getElementsByTagName("script")[0];'
   template += 's.parentNode.insertBefore(ub_script, s);'
   template += '})();'
