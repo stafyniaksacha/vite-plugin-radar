@@ -29,7 +29,7 @@ function injectTag(options: TikTokPixelOptions): HtmlTagDescriptor[] {
   template += '!(function (w, d, t) {'
   template += 'w.TiktokAnalyticsObject = t;'
   template += 'var ttq = (w[t] = w[t] || []);'
-  template += `(ttq.methods = ${PixelMethodsAsString}),`
+  template += `(ttq.methods = [${PixelMethodsAsString}]),`
   template += '(ttq.setAndDefer = function (t, e) {'
   template += 't[e] = function () {'
   template += 't.push([e].concat(Array.prototype.slice.call(arguments, 0)));'
@@ -43,6 +43,7 @@ function injectTag(options: TikTokPixelOptions): HtmlTagDescriptor[] {
   template += '(ttq.load = function (e, n) {'
   template += `var i = ("https:" == document.location.protocol ? "https://" : "http://") + "${sourceLocation}";`
   template += '(ttq._i = ttq._i || {}), (ttq._i[e] = []), (ttq._i[e]._u = i), (ttq._t = ttq._t || {}), (ttq._t[e] = +new Date()), (ttq._o = ttq._o || {}), (ttq._o[e] = n || {});'
+  template += 'var o = document.createElement("script");'
   template += '(o.type = "text/javascript"), (o.async = !0), (o.src = i + "?sdkid=" + e + "&lib=" + t);'
   template += 'var a = document.getElementsByTagName("script")[0];'
   template += 'a.parentNode.insertBefore(o, a);'
