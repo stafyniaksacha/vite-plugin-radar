@@ -13,6 +13,12 @@ interface GoogleTagManagerMainProperty {
 interface GoogleTagManagerDefaultProperty {
   gtmBase?: string
   nsBase?: string
+  environment?: GoogleTagManagerEnvironment
+}
+
+interface GoogleTagManagerEnvironment {
+  auth: string
+  preview: string
 }
 
 type GoogleTagManagerProperty = GoogleTagManagerMainProperty & GoogleTagManagerDefaultProperty
@@ -65,18 +71,20 @@ function injectTag(options: GoogleTagManagerOptions): HtmlTagDescriptor[] {
     children: template,
   })
 
+  const environmentAttachment = property.environment ? `&gtm_auth=${property.environment.auth}&gtm_preview=${property.environment.preview}` : "";
+    
   for (const property of properties) {
     tags.push({
       tag: 'script',
       attrs: {
-        src: `${property.gtmBase}?id=${property.id}`,
+        src: `${property.gtmBase}?id=${property.id}${environmentAttachment}`,
         async: true,
       },
     })
     tags.push({
       tag: 'noscript',
       injectTo: 'body-prepend',
-      children: `<iframe src="${property.nsBase}?id=${property.id}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
+      children: `<iframe src="${property.nsBase}?id=${property.id}${environmentAttachment}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
     })
   }
 

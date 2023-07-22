@@ -108,6 +108,11 @@ export default {
           // You can set custom source for gtm script and noscript
           gtmBase: 'https://www.custom.com/gtm.js',
           nsBase: 'https://www.custom.com/ns.html',
+          // You can optionally define the environment for the gtm.
+          environment: {
+            auth: 'X1YzAB2CDEFGh3ijklmnoP',
+            preview: 'env-x',
+          },
         }
       ],
 
