@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.1](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.9.0...v0.9.1) (2023-07-27)
+
+
+### Features
+
+* **gtm:** Implement possibility to define GTM environment. ([#21](https://github.com/stafyniaksacha/vite-plugin-radar/issues/21)) ([a4539ee](https://github.com/stafyniaksacha/vite-plugin-radar/commit/a4539ee27e1c30efac7ffca7dfde1c1da846d9f0))
+
+
+### Bug Fixes
+
+* Unbounce and TikTok malformed scripts ([#19](https://github.com/stafyniaksacha/vite-plugin-radar/issues/19)) ([1e77734](https://github.com/stafyniaksacha/vite-plugin-radar/commit/1e77734cc7055d2bbc8b344b151ba7f6ac55bb3a))
+
 ## [0.9.0](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.8.0...v0.9.0) (2023-05-09)
 
 
