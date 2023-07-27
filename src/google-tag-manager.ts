@@ -71,9 +71,9 @@ function injectTag(options: GoogleTagManagerOptions): HtmlTagDescriptor[] {
     children: template,
   })
 
-  const environmentAttachment = property.environment ? `&gtm_auth=${property.environment.auth}&gtm_preview=${property.environment.preview}` : "";
-    
   for (const property of properties) {
+    const environmentAttachment = property.environment ? `&gtm_auth=${property.environment.auth}&gtm_preview=${property.environment.preview}` : ''
+
     tags.push({
       tag: 'script',
       attrs: {
