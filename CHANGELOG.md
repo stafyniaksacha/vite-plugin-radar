@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.2](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.9.1...v0.9.2) (2023-11-30)
+
+
+### Features
+
+* support vite 5 ([189297f](https://github.com/stafyniaksacha/vite-plugin-radar/commit/189297fdfbeadca9b0e3faf59a2d86ad26367528))
+
 ### [0.9.1](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.9.0...v0.9.1) (2023-07-27)
 
 
