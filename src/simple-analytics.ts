@@ -26,7 +26,7 @@ function injectTag(options: SimpleAnalyticsOptions): HtmlTagDescriptor[] {
 
   if (options.hostname) {
     noScriptUrl += `?hostname=${options.hostname}`
-    scriptAttrs['data-hostname'] = options.hostname as string
+    scriptAttrs['data-hostname'] = options.hostname
   }
 
   const noscriptTemplate = `<img src="${noScriptUrl}" referrerpolicy="no-referrer-when-downgrade" alt="" />`
