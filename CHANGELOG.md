@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.3](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.9.2...v0.9.3) (2024-01-29)
+
+
+### Features
+
+* add support for SimpleAnalytics ([#27](https://github.com/stafyniaksacha/vite-plugin-radar/issues/27)) ([9b949c7](https://github.com/stafyniaksacha/vite-plugin-radar/commit/9b949c71939998cf5be1f556429bf1dc68ce3547))
+
 ### [0.9.2](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.9.1...v0.9.2) (2023-11-30)
 
 
