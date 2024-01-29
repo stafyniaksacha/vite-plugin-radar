@@ -203,6 +203,22 @@ export default {
         // You can set a custom location or use the default one for TikTok
         script: 'analytics.tiktok.com/i18n/pixel/events.js'
       },
+
+      // SimpleAnalytics
+      simpleanalytics: {
+        enabled: true, // or false
+        /**
+         * You can overwrite domain name (optional)
+         * @see https://docs.simpleanalytics.com/overwrite-domain-name
+         */
+        hostname: 'example.com',
+        /**
+         * You can configure a proxy (optional)
+         * @see https://docs.simpleanalytics.com/proxy
+         */
+        script: 'https://example.com/proxy.js',
+        noScript: 'https://example.com/simple/noscript.gif'
+      },
     })
   ],
 }

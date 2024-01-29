@@ -23,6 +23,8 @@ import type { UnbounceOptions } from './unbounce'
 import injectUnbounce from './unbounce'
 import type { TikTokPixelOptions } from './tiktok-pixel'
 import injectTikTokPixel from './tiktok-pixel'
+import type { SimpleAnalyticsOptions } from './simple-analytics'
+import injectSimpleAnalytics from './simple-analytics'
 
 export interface VitePluginRadarOptions {
   enableDev?: boolean
@@ -38,6 +40,7 @@ export interface VitePluginRadarOptions {
   fullStory?: FullStoryOptions
   unbounce?: UnbounceOptions | boolean
   tiktok?: TikTokPixelOptions
+  simpleanalytics?: SimpleAnalyticsOptions
 }
 
 export function VitePluginRadar({
@@ -54,6 +57,7 @@ export function VitePluginRadar({
   fullStory,
   unbounce,
   tiktok,
+  simpleanalytics,
 }: VitePluginRadarOptions): Plugin {
   let viteConfig: ResolvedConfig
 
@@ -106,6 +110,9 @@ export function VitePluginRadar({
 
       if (tiktok)
         tags.push(...injectTikTokPixel(tiktok))
+
+      if (simpleanalytics)
+        tags.push(...injectSimpleAnalytics(simpleanalytics))
 
       return tags
     },

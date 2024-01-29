@@ -33,6 +33,12 @@ export default defineConfig({
       retargeting: {
         id: 'VK-RTRG-XXXXXX-XXXXX',
       },
+      // simpleanalytics: {
+      //   enabled: true,
+      //   hostname: 'www.custom.com',
+      //   script: 'https://example.com/proxy.js',
+      //   noScript: 'https://example.com/simple/noscript.gif',
+      // },
     }),
   ],
 })
