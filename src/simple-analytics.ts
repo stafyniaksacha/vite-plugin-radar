@@ -3,6 +3,8 @@ import type { HtmlTagDescriptor } from 'vite'
 export interface SimpleAnalyticsOptions {
   enabled: boolean
   hostname?: string
+  script?: string
+  noScript?: string
 }
 
 /**
@@ -17,9 +19,9 @@ function injectTag(options: SimpleAnalyticsOptions): HtmlTagDescriptor[] {
   if (!options.enabled)
     return tags
 
-  let noScriptUrl = NoScriptBase
+  let noScriptUrl = options.noScript ? options.noScript : NoScriptBase
   const scriptAttrs: Record<string, string | boolean> = {
-    src: SimpleAnalyticsBase,
+    src: options.script ? options.script : SimpleAnalyticsBase,
     async: true,
     defer: true,
   }
