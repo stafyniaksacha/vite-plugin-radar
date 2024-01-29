@@ -209,7 +209,7 @@ export default {
         enabled: true, // or false
         /**
          * You can overwrite domain name (optional)
-         * @see https://docs.simpleanalytics.com/proxy
+         * @see https://docs.simpleanalytics.com/overwrite-domain-name
          */
         hostname: 'example.com',
         /**
