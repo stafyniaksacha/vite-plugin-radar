@@ -27,6 +27,7 @@ interface GAConsentDefaults {
 
 type GoogleAnaliticsMainProperty = GoogleAnaliticsProperty & {
   consentDefaults?: GAConsentDefaults
+  injectTo?: HtmlTagDescriptor['injectTo']
 }
 
 interface GoogleAnaliticsProperty {
@@ -112,11 +113,13 @@ function injectTag(options: GoogleAnaliticsOptions): HtmlTagDescriptor[] {
       src: `${GTagBase(mainProperty?.source || GTagSource)}?id=${mainProperty.id}`,
       async: true,
     },
+    injectTo: mainProperty.injectTo,
   })
 
   tags.push({
     tag: 'script',
     children: template,
+    injectTo: mainProperty.injectTo,
   })
 
   return tags
