@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-radar",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Analytics loader for vite",
   "author": "stafyniaksacha",
   "repository": "stafyniaksacha/vite-plugin-radar",

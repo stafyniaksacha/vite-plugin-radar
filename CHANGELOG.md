@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.4](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.9.3...v0.9.4) (2024-04-06)
+
+
+### Features
+
+* add vite 6 to allowed peer dependencies ([18767d8](https://github.com/stafyniaksacha/vite-plugin-radar/commit/18767d85743efb9b24c6df7c2eff34b732df5011))
+* added support for injectTo to google-analytics ([#31](https://github.com/stafyniaksacha/vite-plugin-radar/issues/31)) ([2fa82e8](https://github.com/stafyniaksacha/vite-plugin-radar/commit/2fa82e8ac00cc60fc029849fdf962a383c008140))
+
 ### [0.9.3](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.9.2...v0.9.3) (2024-01-29)
 
 
