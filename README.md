@@ -1,6 +1,6 @@
 # vite-plugin-radar
 
-Analytics loader for vite that support Google Analytics, Google Tag Manager, Facebook Pixel, 
+Analytics loader for vite that support Google Analytics, Google Tag Manager, Facebook Pixel,
 Linkedin Insight, Yandex Metrica, Baidu Tongji, Microsoft Advertising and Unbounce
 
 ### Install
@@ -13,26 +13,25 @@ npm i --save-dev vite-plugin-radar # yarn add -D vite-plugin-radar
 
 ```ts
 // vite.config.js
-import { VitePluginRadar } from 'vite-plugin-radar'
+import { VitePluginRadar } from "vite-plugin-radar";
 
 export default {
   plugins: [
     VitePluginRadar({
       // Google Analytics tag injection
       analytics: {
-        id: 'G-XXXXX',
+        id: "G-XXXXX",
       },
-    })
+    }),
   ],
-}
+};
 ```
-
 
 ## Options
 
 ```ts
 // vite.config.js
-import { VitePluginRadar } from 'vite-plugin-radar'
+import { VitePluginRadar } from "vite-plugin-radar";
 
 export default {
   plugins: [
@@ -49,10 +48,10 @@ export default {
           /**
            * Measurement id
            */
-          id: 'G-XXXXX',
+          id: "G-XXXXX",
 
           /**
-           * disable tracking for this measurement 
+           * disable tracking for this measurement
            *   window['ga-disable-MEASUREMENT_ID'] = true
            * @see https://developers.google.com/analytics/devguides/collection/ga4/disable-analytics
            */
@@ -65,11 +64,11 @@ export default {
            * @see https://developers.google.com/analytics/devguides/collection/ga4/display-features
            */
           config: {
-            cookie_domain: 'auto',
+            cookie_domain: "auto",
             cookie_expires: 63072000,
-            cookie_prefix: 'none',
+            cookie_prefix: "none",
             cookie_update: true,
-            cookie_flags: '',
+            cookie_flags: "",
             send_page_view: true,
             allow_google_signals: true,
             allow_ad_personalization_signals: true,
@@ -81,9 +80,9 @@ export default {
            * @see https://support.google.com/analytics/answer/9976101
            */
           consentDefaults: {
-            analytics_storage: 'granted',
-            ad_storage: 'denied',
-            wait_for_update: 500
+            analytics_storage: "granted",
+            ad_storage: "denied",
+            wait_for_update: 500,
           },
 
           /**
@@ -91,63 +90,63 @@ export default {
            * @see https://developers.google.com/analytics/devguides/collection/ga4/persistent-values
            */
           persistentValues: {
-            currency: 'USD',
-          }
+            currency: "USD",
+          },
         },
         // You can add as many measurement id as you need
         {
-          id: 'UA-YYYYY',
+          id: "UA-YYYYY",
         },
       ],
 
       // Google Tag Manager (multiple tag can be set with an array)
       gtm: [
         {
-          id: 'GTM-XXXXX',
-          
+          id: "GTM-XXXXX",
+
           // You can set custom source for gtm script and noscript
-          gtmBase: 'https://www.custom.com/gtm.js',
-          nsBase: 'https://www.custom.com/ns.html',
+          gtmBase: "https://www.custom.com/gtm.js",
+          nsBase: "https://www.custom.com/ns.html",
           // You can optionally define the environment for the gtm.
           environment: {
-            auth: 'X1YzAB2CDEFGh3ijklmnoP',
-            preview: 'env-x',
+            auth: "X1YzAB2CDEFGh3ijklmnoP",
+            preview: "env-x",
           },
-        }
+        },
       ],
 
       // Facebook Pixel (multiple tag can be set with an array)
       pixel: [
         {
-          id: 'XXXXXXX',
-        }
+          id: "XXXXXXX",
+        },
       ],
 
       // VK Retargeting (multiple tag can be set with an array)
       retargeting: [
         {
-          id: 'VK-RTRG-XXXXXX-XXXXX',
-        }
+          id: "VK-RTRG-XXXXXX-XXXXX",
+        },
       ],
 
       // Linkedin Insight (multiple tag can be set with an array)
       linkedin: [
         {
-          id: 'XXXXXXX',
-        }
+          id: "XXXXXXX",
+        },
       ],
 
       // Baidu Tongji (multiple tag can be set with an array)
       tongji: [
         {
-          id: 'XXXXXXX',
-        }
+          id: "XXXXXXX",
+        },
       ],
 
       // Yandex Metrica (multiple tag can be set with an array)
       metrica: [
         {
-          id: 'XXXXXXX',
+          id: "XXXXXXX",
 
           /**
            * You can configure all settings provided by metrika here
@@ -162,46 +161,46 @@ export default {
             webvisor: true,
             trackHash: true,
             triggerEvent: true,
-            ecommerce: 'dataLayer',
-            trustedDomains: ['example.com'],
+            ecommerce: "dataLayer",
+            trustedDomains: ["example.com"],
             type: 0,
             params: {},
-            userParams: {}
-          }
-        }
+            userParams: {},
+          },
+        },
       ],
 
       // Microsoft Analytics (only one tag can be set)
       microsoft: {
-        id: 'XXXXX'
+        id: "XXXXX",
       },
 
       // Hotjar Analytics (only one tag can be set)
       hotjar: {
-        id: 1000000
+        id: 1000000,
       },
 
       // Full story Analytics (only one tag can be set)
       fullStory: {
-        org: 'X-XXXXXX-XXX',
-        host: 'fullstory.com',
-        script: 'edge.fullstory.com/s/fs.js',
-        namespace: 'FS',
+        org: "X-XXXXXX-XXX",
+        host: "fullstory.com",
+        script: "edge.fullstory.com/s/fs.js",
+        namespace: "FS",
       },
-        
+
       // Unbounce conversion analytics
       // Can also be enabled like so: `unbounce: true`
       unbounce: {
         enabled: true, // or false
         // You can set a custom location or use the default one for unbounce
-        script: 'd3pkntwtp2ukl5.cloudfront.net/uba.js'
+        script: "d3pkntwtp2ukl5.cloudfront.net/uba.js",
       },
 
       // TikTok Pixel Analytics (only one tag can be set)
       tiktok: {
         id: 1000000,
         // You can set a custom location or use the default one for TikTok
-        script: 'analytics.tiktok.com/i18n/pixel/events.js'
+        script: "analytics.tiktok.com/i18n/pixel/events.js",
       },
 
       // SimpleAnalytics
@@ -211,19 +210,33 @@ export default {
          * You can overwrite domain name (optional)
          * @see https://docs.simpleanalytics.com/overwrite-domain-name
          */
-        hostname: 'example.com',
+        hostname: "example.com",
         /**
          * You can configure a proxy (optional)
          * @see https://docs.simpleanalytics.com/proxy
          */
-        script: 'https://example.com/proxy.js',
-        noScript: 'https://example.com/simple/noscript.gif'
+        script: "https://example.com/proxy.js",
+        noScript: "https://example.com/simple/noscript.gif",
       },
-    })
-  ],
-}
-```
 
+      // Plausible
+      plausible: {
+        enabled: true, // or false
+        /**
+         * You can overwrite domain name to send stats to multiple Plausible dashboards (optional)
+         * @see https://plausible.io/docs/plausible-script#can-i-send-stats-to-multiple-dashboards-at-the-same-time
+         */
+        hostname: "example.com",
+        /**
+         * You can configure a proxy (optional)
+         * @see https://plausible.io/docs/proxy/introduction
+         */
+        script: "example.com/js/script.js",
+      },
+    }),
+  ],
+};
+```
 
 ## Resources
 
