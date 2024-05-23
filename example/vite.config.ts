@@ -39,6 +39,11 @@ export default defineConfig({
       //   script: 'https://example.com/proxy.js',
       //   noScript: 'https://example.com/simple/noscript.gif',
       // },
+      // plausible: {
+      //   enabled: true,
+      //   hostname: 'www.custom.com',
+      //   script: 'https://example.com/js/script.js',
+      // },
     }),
   ],
 })

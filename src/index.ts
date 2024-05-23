@@ -25,6 +25,8 @@ import type { TikTokPixelOptions } from './tiktok-pixel'
 import injectTikTokPixel from './tiktok-pixel'
 import type { SimpleAnalyticsOptions } from './simple-analytics'
 import injectSimpleAnalytics from './simple-analytics'
+import type { PlausibleAnalyticsOptions } from './plausible'
+import injectPlausible from './plausible'
 
 export interface VitePluginRadarOptions {
   enableDev?: boolean
@@ -41,6 +43,7 @@ export interface VitePluginRadarOptions {
   unbounce?: UnbounceOptions | boolean
   tiktok?: TikTokPixelOptions
   simpleanalytics?: SimpleAnalyticsOptions
+  plausible?: PlausibleAnalyticsOptions
 }
 
 export function VitePluginRadar({
@@ -58,6 +61,7 @@ export function VitePluginRadar({
   unbounce,
   tiktok,
   simpleanalytics,
+  plausible,
 }: VitePluginRadarOptions): Plugin {
   let viteConfig: ResolvedConfig
 
@@ -113,6 +117,9 @@ export function VitePluginRadar({
 
       if (simpleanalytics)
         tags.push(...injectSimpleAnalytics(simpleanalytics))
+
+      if (plausible)
+        tags.push(...injectPlausible(plausible))
 
       return tags
     },
