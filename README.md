@@ -219,6 +219,21 @@ export default {
         script: 'https://example.com/proxy.js',
         noScript: 'https://example.com/simple/noscript.gif'
       },
+      
+      // Plausible
+      plausible: {
+        enabled: true, // or false
+        /**
+         * You can overwrite domain name to send stats to multiple Plausible dashboards (optional)
+         * @see https://plausible.io/docs/plausible-script#can-i-send-stats-to-multiple-dashboards-at-the-same-time
+         */
+        hostname: 'example.com',
+        /**
+         * You can configure a proxy (optional)
+         * @see https://plausible.io/docs/proxy/introduction
+         */
+        script: 'example.com/js/script.js',
+      },
     })
   ],
 }
