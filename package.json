@@ -8,15 +8,20 @@
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/src/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/src/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "scripts": {
@@ -24,7 +29,7 @@
     "example:dev": "npm -C example run dev",
     "example:build": "npm -C example run build",
     "prepack": "npm run build",
-    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "build": "tsup src/index.ts --experimental-dts --format cjs,esm",
     "lint": "eslint --ext .ts ./src",
     "lint:fix": "eslint --fix --ext .ts ./src",
     "release": "run-s lint release:*",
@@ -36,14 +41,16 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.38.6",
+    "@microsoft/api-extractor": "^7.45.0",
+    "@types/node": "^20.12.12",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.30.7",
     "eslint": "^8.1.0",
     "npm-run-all": "^4.1.5",
-    "rollup": "^3.21.5",
+    "rollup": "^4.18.0",
     "standard-version": "^9.5.0",
-    "tsup": "^6.1.3",
-    "typescript": "^5.0.4",
-    "vite": "^4.3.5"
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11"
   }
 }

@@ -6,11 +6,12 @@
     "esModuleInterop": true,
     "strict": true,
     "strictNullChecks": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true
   },
   "exclude": [
     "**/dist",
+    "**/example",
     "**/node_modules",
     "**/test"
   ]
