@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.5](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.9.4...v0.9.5) (2024-05-28)
+
+
+### Features
+
+* add package exports field ([d931518](https://github.com/stafyniaksacha/vite-plugin-radar/commit/d93151801cc28603c7f66e874d122793848d6b27))
+* add support for Plausible ([#35](https://github.com/stafyniaksacha/vite-plugin-radar/issues/35)) ([cd4200a](https://github.com/stafyniaksacha/vite-plugin-radar/commit/cd4200a0b10487263846669d6199b7c165a17606))
+
 ### [0.9.4](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.9.3...v0.9.4) (2024-04-06)
 
 
