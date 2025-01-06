@@ -219,7 +219,22 @@ export default {
         script: 'https://example.com/proxy.js',
         noScript: 'https://example.com/simple/noscript.gif'
       },
-      
+
+      // Posthog
+      posthog: {
+        enabled: true, // or false
+        token: "phc_XXXXXXXXXXXXXXXXXXXXXXXX", // Find this on https://us.posthog.com/project/settings/project-details#variables
+        api_host: "https://us.i.posthog.com",
+
+        // Optional configuration passed to the PostHog initialization script
+        // NOTE: Because we're marshalling the config into a string, we can't support all of the options
+        // namely the ones that are functions.
+        // @see https://posthog.com/docs/libraries/js#config
+        //
+        // If you need support for more options, you will need to configure PostHog manually.
+        config: {},
+      },
+
       // Plausible
       plausible: {
         enabled: true, // or false
@@ -253,3 +268,4 @@ export default {
 - https://help.hotjar.com/hc/en-us/articles/115009336727-How-to-Install-Your-Hotjar-Tracking-Code
 - https://help.fullstory.com/hc/en-us/articles/360020623514-Installing-the-FullStory-Script#:~:text=Install%20your%20snippet%20directly%20on,closing%20tag.
 - https://documentation.unbounce.com/hc/en-us/articles/203879180-Setting-Conversion-Goals-in-the-Classic-Builder
+- https://posthog.com/docs/libraries/js
