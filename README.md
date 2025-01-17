@@ -176,6 +176,11 @@ export default {
         id: 'XXXXX'
       },
 
+      // Microsoft Clarity (only one tag can be set)
+      microsoftClarity: {
+        id: 'XXXXX'
+      },
+
       // Hotjar Analytics (only one tag can be set)
       hotjar: {
         id: 1000000

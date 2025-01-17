@@ -15,6 +15,8 @@ import type { YandexMetricaOptions } from './yandex-metrica'
 import injectYandexMetrica from './yandex-metrica'
 import type { MicrosoftAdvertisingOptions } from './microsoft-advertising'
 import injectMicrosoftAdvertising from './microsoft-advertising'
+import type { MicrosoftClarityOptions } from './microsoft-clarity'
+import injectMicrosoftClarity from './microsoft-clarity';
 import type { HotjarOptions } from './hotjar'
 import injectHotjar from './hotjar'
 import type { FullStoryOptions } from './full-story'
@@ -39,6 +41,7 @@ export interface VitePluginRadarOptions {
   tongji?: BaiduTongjiOptions
   metrica?: YandexMetricaOptions
   microsoft?: MicrosoftAdvertisingOptions
+  microsoftClarity?: MicrosoftClarityOptions
   retargeting?: VKRetargetingOption
   hotjar?: HotjarOptions
   fullStory?: FullStoryOptions
@@ -58,6 +61,7 @@ export function VitePluginRadar({
   tongji,
   metrica,
   microsoft,
+  microsoftClarity,
   retargeting,
   hotjar,
   fullStory,
@@ -106,6 +110,9 @@ export function VitePluginRadar({
 
       if (microsoft)
         tags.push(...injectMicrosoftAdvertising(microsoft))
+
+      if (microsoftClarity)
+        tags.push(...injectMicrosoftClarity(microsoftClarity))
 
       if (hotjar)
         tags.push(...injectHotjar(hotjar))
