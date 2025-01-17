@@ -1,17 +1,12 @@
 {
   "name": "vite-plugin-radar",
+  "type": "module",
   "version": "0.9.6",
+  "packageManager": "pnpm@9.15.4",
   "description": "Analytics loader for vite",
   "author": "stafyniaksacha",
-  "repository": "stafyniaksacha/vite-plugin-radar",
   "license": "MIT",
-  "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "repository": "stafyniaksacha/vite-plugin-radar",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -19,15 +14,20 @@
       "require": "./dist/index.cjs"
     }
   },
-  "packageManager": "pnpm@9.15.4",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "unbuild --stub",
     "example:dev": "pnpm --filter example dev",
     "example:build": "pnpm --filter example build",
     "prepack": "unbuild",
     "build": "unbuild",
-    "lint": "eslint --ext .ts ./src",
-    "lint:fix": "eslint --fix --ext .ts ./src",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "release": "run-s lint release:*",
     "release:standard-version": "standard-version",
     "release:publish": "git push --follow-tags origin main && npm publish"
@@ -36,11 +36,9 @@
     "vite": "^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.38.6",
+    "@antfu/eslint-config": "^3.14.0",
     "@types/node": "^20.12.12",
-    "@typescript-eslint/eslint-plugin": "^5.2.0",
-    "@typescript-eslint/parser": "^5.30.7",
-    "eslint": "^8.1.0",
+    "eslint": "^9.18.0",
     "npm-run-all": "^4.1.5",
     "standard-version": "^9.5.0",
     "typescript": "^5.4.5",

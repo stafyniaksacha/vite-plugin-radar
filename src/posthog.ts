@@ -18,7 +18,7 @@ export interface PostHogAnalyticsOptions {
   * This script loads PostHog's array.js file, which is the actual PostHog library.
   * It's a single file that contains all the PostHog functionality.
   * This is the only file that needs to be loaded.
-  * 
+  *
   * This script contains all of the boilerplate required to guarantee that you can collect
   * analytics *before* the PostHog library is loaded.
   *

@@ -2,7 +2,7 @@ import type { HtmlTagDescriptor } from 'vite'
 
 declare global {
   interface Window {
-    VK: Function
+    VK: any
   }
 }
 

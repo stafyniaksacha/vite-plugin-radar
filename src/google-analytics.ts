@@ -3,7 +3,7 @@ import type { HtmlTagDescriptor } from 'vite'
 declare global {
   interface Window {
     dataLayer: any[]
-    gtag: Function
+    gtag: (command: string, ...args: any[]) => void
   }
 }
 

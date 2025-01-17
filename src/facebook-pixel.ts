@@ -2,7 +2,7 @@ import type { HtmlTagDescriptor } from 'vite'
 
 declare global {
   interface Window {
-    fbq: Function
+    fbq: (event: string, id?: string, params?: Record<string, any>) => void
   }
 }
 

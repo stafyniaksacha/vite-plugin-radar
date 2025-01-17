@@ -2,7 +2,8 @@ import type { HtmlTagDescriptor } from 'vite'
 
 declare global {
   interface Window {
-    ym: Function
+    dataLayer: any[]
+    ym: (id: string, command: string, ...args: any[]) => void
   }
 }
 interface MetricaConfiguration {

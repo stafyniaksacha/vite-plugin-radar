@@ -1,6 +1,6 @@
 # vite-plugin-radar
 
-Analytics loader for vite that support Google Analytics, Google Tag Manager, Facebook Pixel, 
+Analytics loader for vite that support Google Analytics, Google Tag Manager, Facebook Pixel,
 Linkedin Insight, Yandex Metrica, Baidu Tongji, Microsoft Advertising and Unbounce
 
 ### Install
@@ -27,7 +27,6 @@ export default {
 }
 ```
 
-
 ## Options
 
 ```ts
@@ -52,7 +51,7 @@ export default {
           id: 'G-XXXXX',
 
           /**
-           * disable tracking for this measurement 
+           * disable tracking for this measurement
            *   window['ga-disable-MEASUREMENT_ID'] = true
            * @see https://developers.google.com/analytics/devguides/collection/ga4/disable-analytics
            */
@@ -104,7 +103,7 @@ export default {
       gtm: [
         {
           id: 'GTM-XXXXX',
-          
+
           // You can set custom source for gtm script and noscript
           gtmBase: 'https://www.custom.com/gtm.js',
           nsBase: 'https://www.custom.com/ns.html',
@@ -193,7 +192,7 @@ export default {
         script: 'edge.fullstory.com/s/fs.js',
         namespace: 'FS',
       },
-        
+
       // Unbounce conversion analytics
       // Can also be enabled like so: `unbounce: true`
       unbounce: {
@@ -228,8 +227,8 @@ export default {
       // Posthog
       posthog: {
         enabled: true, // or false
-        token: "phc_XXXXXXXXXXXXXXXXXXXXXXXX", // Find this on https://us.posthog.com/project/settings/project-details#variables
-        api_host: "https://us.i.posthog.com",
+        token: 'phc_XXXXXXXXXXXXXXXXXXXXXXXX', // Find this on https://us.posthog.com/project/settings/project-details#variables
+        api_host: 'https://us.i.posthog.com',
 
         // Optional configuration passed to the PostHog initialization script
         // NOTE: Because we're marshalling the config into a string, we can't support all of the options
@@ -258,7 +257,6 @@ export default {
   ],
 }
 ```
-
 
 ## Resources
 

@@ -6,7 +6,7 @@ const PixelMethodsAsString = PixelMethods.map(s => `"${s}"`).join(', ')
 declare global {
   interface Window {
     TiktokAnalyticsObject: 'ttq'
-    ttq: Record<typeof PixelMethods[number], Function>
+    ttq: Record<typeof PixelMethods[number], (...args: any[]) => void>
   }
 }
 
