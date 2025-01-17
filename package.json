@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-radar",
   "type": "module",
-  "version": "0.9.6",
+  "version": "0.10.0",
   "packageManager": "pnpm@9.15.4",
   "description": "Analytics loader for vite",
   "author": "stafyniaksacha",

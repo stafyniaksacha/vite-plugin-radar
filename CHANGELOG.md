@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.10.0](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.9.6...v0.10.0) (2025-01-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* disable default export
+
+### Features
+
+* Add PostHog tracker ([#36](https://github.com/stafyniaksacha/vite-plugin-radar/issues/36)) ([3de359a](https://github.com/stafyniaksacha/vite-plugin-radar/commit/3de359acf82a46a762a000127a1b43d33999aae1)), closes [#32](https://github.com/stafyniaksacha/vite-plugin-radar/issues/32)
+* Add support for Microsoft Clarity ([#38](https://github.com/stafyniaksacha/vite-plugin-radar/issues/38)) ([e539281](https://github.com/stafyniaksacha/vite-plugin-radar/commit/e5392818271bc555224c807f2d887e23f8d78d3b))
+
+
+* use unbuild instead of tsup ([c76eda6](https://github.com/stafyniaksacha/vite-plugin-radar/commit/c76eda6637e38b8e4ee49d5fbd3d6f6ed13b3dfc))
+
 ### [0.9.6](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.9.5...v0.9.6) (2024-05-28)
 
 ### [0.9.5](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.9.4...v0.9.5) (2024-05-28)
