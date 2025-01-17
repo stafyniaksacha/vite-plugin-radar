@@ -33,12 +33,21 @@ export default defineConfig({
       retargeting: {
         id: 'VK-RTRG-XXXXXX-XXXXX',
       },
+
       // simpleanalytics: {
       //   enabled: true,
       //   hostname: 'www.custom.com',
       //   script: 'https://example.com/proxy.js',
       //   noScript: 'https://example.com/simple/noscript.gif',
       // },
+
+      // Posthog
+      // posthog: {
+      //   enabled: true,
+      //   token: 'phc_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+      //   api_host: 'https://us.api.posthog.com',
+      // },
+
       // plausible: {
       //   enabled: true,
       //   hostname: 'www.custom.com',
