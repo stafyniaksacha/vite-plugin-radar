@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import ViteRadar from 'vite-plugin-radar'
+import { VitePluginRadar } from 'vite-plugin-radar'
 
 export default defineConfig({
   // server: {
@@ -12,7 +12,7 @@ export default defineConfig({
     // },
   },
   plugins: [
-    ViteRadar({
+    VitePluginRadar({
       enableDev: true,
       analytics: {
         id: 'G-XXX',

@@ -139,5 +139,3 @@ export function VitePluginRadar({
     },
   }
 }
-
-export default VitePluginRadar
