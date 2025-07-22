@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.1](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.10.0...v0.10.1) (2025-07-22)
+
+
+### Features
+
+* support vite 7 ([#44](https://github.com/stafyniaksacha/vite-plugin-radar/issues/44)) ([0cd2b2e](https://github.com/stafyniaksacha/vite-plugin-radar/commit/0cd2b2ee8d4fbe4a3dc6dc131698764a2d79435a))
+
+
+### Bug Fixes
+
+* yandex metrika base link changed to a new one ([#40](https://github.com/stafyniaksacha/vite-plugin-radar/issues/40)) ([ac24b89](https://github.com/stafyniaksacha/vite-plugin-radar/commit/ac24b89da566cf2702ec09d00d2408d995ed4aa1))
+
 ## [0.10.0](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.9.6...v0.10.0) (2025-01-17)
 
 
