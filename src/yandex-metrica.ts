@@ -29,8 +29,7 @@ export interface YandexMetricaProperty {
 
 export type YandexMetricaOptions = YandexMetricaProperty | YandexMetricaProperty[]
 
-// https://mc.yandex.ru/metrika/tag.js
-const MetricaBase = 'https://cdn.jsdelivr.net/npm/yandex-metrica-watch/tag.js'
+const MetricaBase = 'https://mc.yandex.ru/metrika/tag.js'
 const NoScriptBase = 'https://mc.yandex.ru/watch/'
 
 function injectTag(options: YandexMetricaOptions): HtmlTagDescriptor[] {
