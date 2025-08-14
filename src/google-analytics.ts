@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-interface GAConfiguration {
+interface GAConfiguration extends Record<string, any> {
   send_page_view?: boolean
   allow_google_signals?: boolean
   allow_ad_personalization_signals?: boolean
@@ -17,6 +17,9 @@ interface GAConfiguration {
   cookie_prefix?: string
   cookie_update?: boolean
   cookie_flags?: string
+  user_id?: string
+  page_title?: string
+  currency?: string
 }
 
 interface GAConsentDefaults {
