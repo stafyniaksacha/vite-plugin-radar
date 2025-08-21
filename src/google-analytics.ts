@@ -20,6 +20,7 @@ interface GAConfiguration extends Record<string, any> {
   user_id?: string
   page_title?: string
   currency?: string
+  debug_mode?: boolean
 }
 
 interface GAConsentDefaults {
