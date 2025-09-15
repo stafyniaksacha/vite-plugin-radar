@@ -43,7 +43,7 @@ function injectTag(options: PostHogAnalyticsOptions): HtmlTagDescriptor[] {
     injectTo: 'head',
     children: `
       ${ARRAY_LOADER}
-      posthog.init('${options.token}', { api_host: '${options.api_host}', ...${options.config ? JSON.stringify(options.config) : ''} })
+      posthog.init('${options.token}', { api_host: '${options.api_host}', ...${options.config ? JSON.stringify(options.config) : '{}'} })
     `,
   })
 
