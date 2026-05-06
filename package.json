@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-radar",
   "type": "module",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "packageManager": "pnpm@9.15.4",
   "description": "Analytics loader for vite",
   "author": "stafyniaksacha",
@@ -33,7 +33,7 @@
     "release:publish": "git push --follow-tags origin main && npm publish"
   },
   "peerDependencies": {
-    "vite": "^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0"
+    "vite": "^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.14.0",
