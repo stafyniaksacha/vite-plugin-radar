@@ -8,7 +8,7 @@
     "build": "vite build"
   },
   "devDependencies": {
-    "vite": "^6.0.7",
-    "vite-plugin-radar": "workspace: *"
+    "vite": "catalog:",
+    "vite-plugin-radar": "workspace:*"
   }
 }

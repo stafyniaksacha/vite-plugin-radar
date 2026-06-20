@@ -1,2 +1,9 @@
 packages:
   - example
+
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
+
+catalog:
+  vite: ^8.0.16

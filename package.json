@@ -2,7 +2,7 @@
   "name": "vite-plugin-radar",
   "type": "module",
   "version": "0.10.1",
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@11.8.0+sha512.c1f5e7c4cb241c8f174b743851d82f42b802324afc8b0f116b96adb15aa06664948dde36960a3ba1079ba5b4b29dd0140135b94b5b5f5263592249d68e555f26",
   "description": "Analytics loader for vite",
   "author": "stafyniaksacha",
   "license": "MIT",
@@ -36,13 +36,13 @@
     "vite": "^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.14.0",
-    "@types/node": "^20.12.12",
-    "eslint": "^9.18.0",
+    "@antfu/eslint-config": "^9.0.0",
+    "@types/node": "^26.0.0",
+    "eslint": "^10.5.0",
     "npm-run-all": "^4.1.5",
     "standard-version": "^9.5.0",
-    "typescript": "^5.4.5",
-    "unbuild": "^3.3.1",
-    "vite": "^6.0.7"
+    "typescript": "^6.0.3",
+    "unbuild": "^3.6.1",
+    "vite": "catalog:"
   }
 }
