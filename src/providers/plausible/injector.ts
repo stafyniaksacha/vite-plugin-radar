@@ -1,10 +1,6 @@
 import type { HtmlTagDescriptor } from 'vite'
 import type { PlausibleAnalyticsOptions } from './types'
-
-/**
- * @see https://plausible.io/docs/plausible-script
- */
-const DefaultScriptUrl = 'https://plausible.io/js/script.js'
+import { defaults } from './default-values'
 
 function injectTag(options: PlausibleAnalyticsOptions): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
@@ -12,13 +8,15 @@ function injectTag(options: PlausibleAnalyticsOptions): HtmlTagDescriptor[] {
   if (!options.enabled)
     return tags
 
+  const { script, defer, hostname } = { ...defaults, ...options }
+
   const scriptAttrs: Record<string, string | boolean> = {
-    src: options.script || DefaultScriptUrl,
-    defer: true,
+    src: script,
+    defer,
   }
 
-  if (options.hostname)
-    scriptAttrs['data-domain'] = options.hostname
+  if (hostname)
+    scriptAttrs['data-domain'] = hostname
 
   tags.push({
     tag: 'script',

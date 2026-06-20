@@ -1,31 +1,29 @@
 import type { HtmlTagDescriptor } from 'vite'
 import type { TikTokPixelOptions } from './types'
-
-const PixelMethods = ['page', 'track', 'identify', 'instances', 'debug', 'on', 'off', 'once', 'ready', 'alias', 'group', 'enableCookie', 'disableCookie'] as const
-const PixelMethodsAsString = PixelMethods.map(s => `"${s}"`).join(', ')
+import { defaults } from './default-values'
 
 declare global {
   interface Window {
     TiktokAnalyticsObject: 'ttq'
-    ttq: Record<typeof PixelMethods[number], (...args: any[]) => void>
+    ttq: Record<string, (...args: any[]) => void>
   }
 }
 
-const TikTokPixelBase = 'analytics.tiktok.com/i18n/pixel/events.js'
-
 function injectTag(options: TikTokPixelOptions): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
-  const sourceLocation = options.script ?? TikTokPixelBase
 
   if (!options.id)
     return tags
+
+  const { id, script: sourceLocation, methods, page } = { ...defaults, ...options }
+  const methodsAsString = methods.map(s => `"${s}"`).join(', ')
 
   let template = ''
 
   template += '!(function (w, d, t) {'
   template += 'w.TiktokAnalyticsObject = t;'
   template += 'var ttq = (w[t] = w[t] || []);'
-  template += `(ttq.methods = [${PixelMethodsAsString}]),`
+  template += `(ttq.methods = [${methodsAsString}]),`
   template += '(ttq.setAndDefer = function (t, e) {'
   template += 't[e] = function () {'
   template += 't.push([e].concat(Array.prototype.slice.call(arguments, 0)));'
@@ -44,8 +42,8 @@ function injectTag(options: TikTokPixelOptions): HtmlTagDescriptor[] {
   template += 'var a = document.getElementsByTagName("script")[0];'
   template += 'a.parentNode.insertBefore(o, a);'
   template += '});'
-  template += `ttq.load("${options.id}");`
-  template += 'ttq.page();'
+  template += `ttq.load("${id}");`
+  template += `${page};`
   template += '})(window, document, "ttq");'
 
   tags.push({

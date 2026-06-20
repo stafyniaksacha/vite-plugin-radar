@@ -1,5 +1,6 @@
 import type { HtmlTagDescriptor } from 'vite'
-import type { YandexMetricaOptions, YandexMetricaProperty } from './types'
+import type { YandexMetricaOptions } from './types'
+import { defaults } from './default-values'
 
 declare global {
   interface Window {
@@ -8,26 +9,17 @@ declare global {
   }
 }
 
-const MetricaBase = 'https://mc.yandex.ru/metrika/tag.js'
-const NoScriptBase = 'https://mc.yandex.ru/watch/'
-
 function injectTag(options: YandexMetricaOptions): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
-  let properties: YandexMetricaProperty[] = []
 
-  if (Array.isArray(options)) {
-    properties.push(
-      ...options,
-    )
-  }
-  else {
-    properties.push(options)
-  }
-
-  properties = properties.filter(property => Boolean(property.id))
+  const properties = (Array.isArray(options) ? options : [options])
+    .filter(property => Boolean(property.id))
+    .map(property => ({ ...defaults, ...property }))
 
   if (!properties.length)
     return tags
+
+  const [{ script }] = properties
 
   let template = ''
   let noscriptTemplate = ''
@@ -36,7 +28,7 @@ function injectTag(options: YandexMetricaOptions): HtmlTagDescriptor[] {
 
   template += '(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};'
   template += 'm[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})'
-  template += `(window, document, "script", "${MetricaBase}", "ym");`
+  template += `(window, document, "script", "${script}", "ym");`
 
   for (const property of properties) {
     if (property.config)
@@ -44,7 +36,7 @@ function injectTag(options: YandexMetricaOptions): HtmlTagDescriptor[] {
     else
       template += `ym("${property.id}", "init");\n`
 
-    noscriptTemplate += `<img src="${NoScriptBase}${property.id}" style="position:absolute;left:-9999px;" alt="" />`
+    noscriptTemplate += `<img src="${property.noScript}${property.id}" style="position:absolute;left:-9999px;" alt="" />`
   }
 
   tags.push({

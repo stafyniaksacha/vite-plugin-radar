@@ -1,5 +1,6 @@
 import type { HtmlTagDescriptor } from 'vite'
-import type { BaiduTongjiOptions, BaiduTongjiProperty } from './types'
+import type { BaiduTongjiOptions } from './types'
+import { defaults } from './default-values'
 
 declare global {
   interface Window {
@@ -7,22 +8,12 @@ declare global {
   }
 }
 
-const TongjiBase = 'https://hm.baidu.com/hm.js'
-
 function injectTag(options: BaiduTongjiOptions): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
-  let properties: BaiduTongjiProperty[] = []
 
-  if (Array.isArray(options)) {
-    properties.push(
-      ...options,
-    )
-  }
-  else {
-    properties.push(options)
-  }
-
-  properties = properties.filter(property => Boolean(property.id))
+  const properties = (Array.isArray(options) ? options : [options])
+    .filter(property => Boolean(property.id))
+    .map(property => ({ ...defaults, ...property }))
 
   if (!properties.length)
     return tags
@@ -32,7 +23,7 @@ function injectTag(options: BaiduTongjiOptions): HtmlTagDescriptor[] {
   let template = ''
 
   template += 'var _hmt = _hmt || [];\n'
-  template += '_hmt.push([\'_setAutoPageview\', true]);\n'
+  template += `_hmt.push(['_setAutoPageview', ${properties[0].autoPageview}]);\n`
 
   for (const property of properties)
     template += `_hmt.push(['_setAccount', '${property.id}']);\n`
@@ -46,8 +37,8 @@ function injectTag(options: BaiduTongjiOptions): HtmlTagDescriptor[] {
     tags.push({
       tag: 'script',
       attrs: {
-        src: `${TongjiBase}?${property.id}`,
-        async: true,
+        src: `${property.script}?${property.id}`,
+        async: property.async,
       },
     })
   }

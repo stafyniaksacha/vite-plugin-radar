@@ -94,6 +94,53 @@ describe('unbounce edge cases', () => {
   })
 })
 
+describe('default value overrides', () => {
+  it('uses hard-coded defaults when nothing is overridden', async () => {
+    const tags = await runPlugin({ linkedin: { id: '123' } })
+    const serialized = JSON.stringify(tags)
+
+    expect(serialized).toContain('https://snap.licdn.com/li.lms-analytics/insight.min.js')
+    expect(serialized).toContain('https://px.ads.linkedin.com/collect/')
+  })
+
+  it('overrides script and noScript urls (array provider)', async () => {
+    const tags = await runPlugin({
+      linkedin: { id: '123', script: 'https://cdn.example/insight.js', noScript: 'https://cdn.example/collect' },
+    })
+    const serialized = JSON.stringify(tags)
+
+    expect(serialized).toContain('https://cdn.example/insight.js')
+    expect(serialized).toContain('https://cdn.example/collect')
+    expect(serialized).not.toContain('https://snap.licdn.com/li.lms-analytics/insight.min.js')
+  })
+
+  it('overrides the gtm script source', async () => {
+    const tags = await runPlugin({ gtm: { id: 'GTM-1', gtmBase: 'https://custom.example/gtm.js' } })
+
+    expect(JSON.stringify(tags)).toContain('https://custom.example/gtm.js')
+  })
+
+  it('overrides the facebook pixel tracked event', async () => {
+    const tags = await runPlugin({ pixel: { id: '123', event: 'CompletePayment' } })
+
+    expect(JSON.stringify(tags)).toContain('fbq(\'track\', \'CompletePayment\')')
+  })
+
+  it('overrides a single-property provider script (tiktok)', async () => {
+    const tags = await runPlugin({ tiktok: { id: '123', script: 'cdn.example/tt.js' } })
+
+    expect(JSON.stringify(tags)).toContain('cdn.example/tt.js')
+  })
+
+  it('overrides the posthog loader snippet', async () => {
+    const tags = await runPlugin({
+      posthog: { enabled: true, token: 't', api_host: 'https://eu.i.posthog.com', loader: 'window.__customPosthogLoader();' },
+    })
+
+    expect(JSON.stringify(tags)).toContain('window.__customPosthogLoader();')
+  })
+})
+
 describe('dev gating', () => {
   it('skips injection during `serve` by default', async () => {
     expect(await runPlugin({ analytics: { id: 'G-1' } }, 'serve')).toEqual([])

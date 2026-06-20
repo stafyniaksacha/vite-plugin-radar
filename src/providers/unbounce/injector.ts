@@ -1,19 +1,15 @@
 import type { HtmlTagDescriptor } from 'vite'
 import type { UnbounceOptions } from './types'
-
-/**
- * @see https://gist.github.com/unbounce/705431#file-unbounce-external-tracking-html
- */
-const UnbounceBase = 'd3pkntwtp2ukl5.cloudfront.net/uba.js'
+import { defaults } from './default-values'
 
 function injectTag(options: UnbounceOptions | boolean): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
-  const sourceLocation = typeof options === 'object' ? options.script : UnbounceBase
+  const { script: sourceLocation, goal } = typeof options === 'object' ? { ...defaults, ...options } : defaults
 
   let template = ''
 
   template += 'var _ubaq = _ubaq || [];'
-  template += '_ubaq.push(["trackGoal", "convert"]);'
+  template += `_ubaq.push(${goal});`
   template += '(function () {'
   template += 'var ub_script = document.createElement("script");'
   template += 'ub_script.type = "text/javascript";'

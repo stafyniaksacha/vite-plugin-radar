@@ -22,14 +22,32 @@ export interface GAConsentDefaults {
   wait_for_update?: number
 }
 
-export type GoogleAnaliticsMainProperty = GoogleAnaliticsProperty & {
+export interface GoogleAnaliticsDefaults {
+  /**
+   * Origin serving `gtag.js` (e.g. a self-hosted proxy)
+   */
+  source?: string
+  /**
+   * Path appended to `source` to build the `gtag.js` URL
+   */
+  basePath?: string
+  /**
+   * `async` attribute set on the injected `gtag.js` script tag
+   */
+  async?: boolean
+  /**
+   * Bootstrap snippet that defines `dataLayer` and the `gtag()` function
+   */
+  loader?: string
+}
+
+export type GoogleAnaliticsMainProperty = GoogleAnaliticsProperty & GoogleAnaliticsDefaults & {
   consentDefaults?: GAConsentDefaults
   injectTo?: HtmlTagDescriptor['injectTo']
 }
 
 export interface GoogleAnaliticsProperty {
   id: string
-  source?: string
   disable?: boolean
   config?: GAConfiguration
   persistentValues?: Record<string, string | number | boolean>

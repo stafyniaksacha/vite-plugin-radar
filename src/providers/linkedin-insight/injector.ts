@@ -1,5 +1,6 @@
 import type { HtmlTagDescriptor } from 'vite'
-import type { LinkedinInsightOptions, LinkedinInsightProperty } from './types'
+import type { LinkedinInsightOptions } from './types'
+import { defaults } from './default-values'
 
 declare global {
   interface Window {
@@ -7,23 +8,12 @@ declare global {
   }
 }
 
-const InsightBase = 'https://snap.licdn.com/li.lms-analytics/insight.min.js'
-const NoScriptBase = 'https://px.ads.linkedin.com/collect/'
-
 function injectTag(options: LinkedinInsightOptions): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
-  let properties: LinkedinInsightProperty[] = []
 
-  if (Array.isArray(options)) {
-    properties.push(
-      ...options,
-    )
-  }
-  else {
-    properties.push(options)
-  }
-
-  properties = properties.filter(property => Boolean(property.id))
+  const properties = (Array.isArray(options) ? options : [options])
+    .filter(property => Boolean(property.id))
+    .map(property => ({ ...defaults, ...property }))
 
   if (!properties.length)
     return tags
@@ -35,10 +25,12 @@ function injectTag(options: LinkedinInsightOptions): HtmlTagDescriptor[] {
 
   for (const property of properties) {
     template += `window._linkedin_data_partner_ids.push(${property.id});\n`
-    noscriptTemplate += `<img height="1" width="1" style="display:none;" alt="" src="${NoScriptBase}?pid=${property.id}&fmt=gif" />`
+    noscriptTemplate += `<img height="1" width="1" style="display:none;" alt="" src="${property.noScript}?pid=${property.id}&fmt=gif" />`
   }
 
   /// https://www.linkedin.com/help/lms/answer/a427660
+
+  const [{ script, async }] = properties
 
   tags.push({
     tag: 'script',
@@ -47,8 +39,8 @@ function injectTag(options: LinkedinInsightOptions): HtmlTagDescriptor[] {
   tags.push({
     tag: 'script',
     attrs: {
-      src: `${InsightBase}`,
-      async: true,
+      src: `${script}`,
+      async,
     },
   })
   tags.push({

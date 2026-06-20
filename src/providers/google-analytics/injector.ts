@@ -1,5 +1,6 @@
 import type { HtmlTagDescriptor } from 'vite'
 import type { GoogleAnaliticsMainProperty, GoogleAnaliticsOptions, GoogleAnaliticsProperty } from './types'
+import { defaults } from './default-values'
 
 declare global {
   interface Window {
@@ -7,9 +8,6 @@ declare global {
     gtag: (command: string, ...args: any[]) => void
   }
 }
-
-const GTagSource = 'https://www.googletagmanager.com'
-const GTagBase = (source: string) => `${source}/gtag/js`
 
 function injectTag(options: GoogleAnaliticsOptions): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
@@ -29,7 +27,7 @@ function injectTag(options: GoogleAnaliticsOptions): HtmlTagDescriptor[] {
   if (!properties.length)
     return tags
 
-  const mainProperty = properties.shift() as GoogleAnaliticsMainProperty
+  const mainProperty = { ...defaults, ...(properties.shift() as GoogleAnaliticsMainProperty) }
 
   if (!mainProperty)
     return tags
@@ -47,12 +45,8 @@ function injectTag(options: GoogleAnaliticsOptions): HtmlTagDescriptor[] {
       template += `window['ga-disable-${property.id}'] = true;\n`
   }
 
-  // inject dataLayer & gtag function to window object
-  template += 'window.dataLayer = window.dataLayer || [];\n'
-  template += 'function gtag(){dataLayer.push(arguments);}\n'
-
-  // tag user time
-  template += 'gtag(\'js\', new Date());\n'
+  // inject dataLayer & gtag function to window object and tag user time
+  template += mainProperty.loader
 
   // register default values for "consent mode"
   // must be before config calls
@@ -78,8 +72,8 @@ function injectTag(options: GoogleAnaliticsOptions): HtmlTagDescriptor[] {
   tags.push({
     tag: 'script',
     attrs: {
-      src: `${GTagBase(mainProperty?.source || GTagSource)}?id=${mainProperty.id}`,
-      async: true,
+      src: `${mainProperty.source}${mainProperty.basePath}?id=${mainProperty.id}`,
+      async: mainProperty.async,
     },
     injectTo: mainProperty.injectTo,
   })

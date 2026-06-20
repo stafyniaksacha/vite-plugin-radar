@@ -1,4 +1,12 @@
-export interface PostHogAnalyticsOptions {
+export interface PostHogAnalyticsDefaults {
+  /**
+   * The PostHog loader snippet (the `array.js` bootstrap).
+   * Override only if you need to pin a different snippet version.
+   */
+  loader?: string
+}
+
+export interface PostHogAnalyticsOptions extends PostHogAnalyticsDefaults {
   enabled: boolean
   token: string
   api_host: string

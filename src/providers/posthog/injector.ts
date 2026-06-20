@@ -1,6 +1,6 @@
 import type { HtmlTagDescriptor } from 'vite'
 import type { PostHogAnalyticsOptions } from './types'
-import { ARRAY_LOADER } from './constants'
+import { defaults } from './default-values'
 
 function injectTag(options: PostHogAnalyticsOptions): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
@@ -14,11 +14,13 @@ function injectTag(options: PostHogAnalyticsOptions): HtmlTagDescriptor[] {
   if (!options.api_host)
     throw new Error('PostHog API host is required')
 
+  const { loader } = { ...defaults, ...options }
+
   tags.push({
     tag: 'script',
     injectTo: 'head',
     children: `
-      ${ARRAY_LOADER}
+      ${loader}
       posthog.init('${options.token}', { api_host: '${options.api_host}', ...${options.config ? JSON.stringify(options.config) : '{}'} })
     `,
   })

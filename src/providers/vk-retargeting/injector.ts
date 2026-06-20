@@ -1,5 +1,6 @@
 import type { HtmlTagDescriptor } from 'vite'
-import type { VKRetargeting, VKRetargetingOption } from './types'
+import type { VKRetargetingOption } from './types'
+import { defaults } from './default-values'
 
 declare global {
   interface Window {
@@ -7,26 +8,17 @@ declare global {
   }
 }
 
-const RetargetingBase = 'https://vk.com/js/api/openapi.js?169'
-const NoScriptBase = 'https://vk.com/rtrg'
-
 function injectTag(options: VKRetargetingOption): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
-  let properties: VKRetargeting[] = []
 
-  if (Array.isArray(options)) {
-    properties.push(
-      ...options,
-    )
-  }
-  else {
-    properties.push(options)
-  }
-
-  properties = properties.filter(property => Boolean(property.id))
+  const properties = (Array.isArray(options) ? options : [options])
+    .filter(property => Boolean(property.id))
+    .map(property => ({ ...defaults, ...property }))
 
   if (!properties.length)
     return tags
+
+  const [{ script, hit }] = properties
 
   /// https://vk.com/faq14080
   let template = ''
@@ -34,13 +26,13 @@ function injectTag(options: VKRetargetingOption): HtmlTagDescriptor[] {
 
   template += '!(function()'
   template += '{var t=document.createElement("script");t.type="text/javascript",'
-  template += `t.async=!0,t.src="${RetargetingBase}",t.onload=function(){`
+  template += `t.async=!0,t.src="${script}",t.onload=function(){`
 
   for (const property of properties) {
     template += `VK.Retargeting.Init("${property.id}"),`
-    noscriptTemplate += `<img height="1" width="1" style="display:none" src="${NoScriptBase}?p=${property.id}"/>\n`
+    noscriptTemplate += `<img height="1" width="1" style="display:none" src="${property.noScript}?p=${property.id}"/>\n`
   }
-  template += 'VK.Retargeting.Hit()},document.head.appendChild(t);})();'
+  template += `${hit}},document.head.appendChild(t);})();`
 
   tags.push({
     tag: 'script',

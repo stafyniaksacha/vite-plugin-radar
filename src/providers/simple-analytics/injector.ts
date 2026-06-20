@@ -1,11 +1,6 @@
 import type { HtmlTagDescriptor } from 'vite'
 import type { SimpleAnalyticsOptions } from './types'
-
-/**
- * @see https://docs.simpleanalytics.com/script
- */
-const SimpleAnalyticsBase = 'https://scripts.simpleanalyticscdn.com/latest.js'
-const NoScriptBase = 'https://queue.simpleanalyticscdn.com/noscript.gif'
+import { defaults } from './default-values'
 
 function injectTag(options: SimpleAnalyticsOptions): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
@@ -13,16 +8,18 @@ function injectTag(options: SimpleAnalyticsOptions): HtmlTagDescriptor[] {
   if (!options.enabled)
     return tags
 
-  let noScriptUrl = options.noScript ? options.noScript : NoScriptBase
+  const { script, noScript, async, defer, hostname } = { ...defaults, ...options }
+
+  let noScriptUrl = noScript
   const scriptAttrs: Record<string, string | boolean> = {
-    src: options.script ? options.script : SimpleAnalyticsBase,
-    async: true,
-    defer: true,
+    src: script,
+    async,
+    defer,
   }
 
-  if (options.hostname) {
-    noScriptUrl += `?hostname=${options.hostname}`
-    scriptAttrs['data-hostname'] = options.hostname
+  if (hostname) {
+    noScriptUrl += `?hostname=${hostname}`
+    scriptAttrs['data-hostname'] = hostname
   }
 
   const noscriptTemplate = `<img src="${noScriptUrl}" referrerpolicy="no-referrer-when-downgrade" alt="" />`

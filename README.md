@@ -29,6 +29,12 @@ export default {
 
 ## Options
 
+Every provider ships with sensible hard-coded defaults (script/endpoint urls, script
+attributes, snippet versions, loader snippets, …). All of them live in each provider's
+`default-values.ts` and can be overridden through the provider options — handy for
+self-hosting or proxying third-party scripts. The commented lines below show the
+overridable defaults for each provider.
+
 ```ts
 // vite.config.js
 import { VitePluginRadar } from 'vite-plugin-radar'
@@ -49,6 +55,15 @@ export default {
            * Measurement id
            */
           id: 'G-XXXXX',
+
+          /**
+           * Override the gtag.js origin / path, the `async` flag,
+           * or the dataLayer bootstrap snippet (all optional)
+           */
+          source: 'https://www.googletagmanager.com',
+          // basePath: '/gtag/js',
+          // async: true,
+          // loader: 'window.dataLayer = window.dataLayer || [];...',
 
           /**
            * disable tracking for this measurement
@@ -107,6 +122,9 @@ export default {
           // You can set custom source for gtm script and noscript
           gtmBase: 'https://www.custom.com/gtm.js',
           nsBase: 'https://www.custom.com/ns.html',
+          // You can also override the `async` flag and the dataLayer bootstrap snippet
+          // async: true,
+          // loader: 'window.dataLayer = window.dataLayer || [];...',
           // You can optionally define the environment for the gtm.
           environment: {
             auth: 'X1YzAB2CDEFGh3ijklmnoP',
@@ -119,6 +137,10 @@ export default {
       pixel: [
         {
           id: 'XXXXXXX',
+          // Optional overrides for the script/noscript urls and tracked event
+          // script: 'https://connect.facebook.net/en_US/fbevents.js',
+          // noScript: 'https://www.facebook.com/tr',
+          // event: 'PageView',
         }
       ],
 
@@ -126,6 +148,10 @@ export default {
       retargeting: [
         {
           id: 'VK-RTRG-XXXXXX-XXXXX',
+          // Optional overrides for the script/noscript urls and hit call
+          // script: 'https://vk.com/js/api/openapi.js?169',
+          // noScript: 'https://vk.com/rtrg',
+          // hit: 'VK.Retargeting.Hit()',
         }
       ],
 
@@ -133,6 +159,10 @@ export default {
       linkedin: [
         {
           id: 'XXXXXXX',
+          // Optional overrides for the script/noscript urls and async flag
+          // script: 'https://snap.licdn.com/li.lms-analytics/insight.min.js',
+          // noScript: 'https://px.ads.linkedin.com/collect/',
+          // async: true,
         }
       ],
 
@@ -140,6 +170,10 @@ export default {
       tongji: [
         {
           id: 'XXXXXXX',
+          // Optional overrides for the script url, async flag and auto pageview
+          // script: 'https://hm.baidu.com/hm.js',
+          // async: true,
+          // autoPageview: true,
         }
       ],
 
@@ -147,6 +181,10 @@ export default {
       metrica: [
         {
           id: 'XXXXXXX',
+
+          // Optional overrides for the script/noscript urls
+          // script: 'https://mc.yandex.ru/metrika/tag.js',
+          // noScript: 'https://mc.yandex.ru/watch/',
 
           /**
            * You can configure all settings provided by metrika here
@@ -172,17 +210,27 @@ export default {
 
       // Microsoft Analytics (only one tag can be set)
       microsoft: {
-        id: 'XXXXX'
+        id: 'XXXXX',
+        // Optional overrides for the UET script url and async flag
+        // script: '//bat.bing.com/bat.js',
+        // async: 1,
       },
 
       // Microsoft Clarity (only one tag can be set)
       microsoftClarity: {
-        id: 'XXXXX'
+        id: 'XXXXX',
+        // Optional overrides for the script url and async flag
+        // script: 'https://www.clarity.ms/tag/',
+        // async: 1,
       },
 
       // Hotjar Analytics (only one tag can be set)
       hotjar: {
-        id: 1000000
+        id: 1000000,
+        // Optional overrides for the script url, snippet version and async flag
+        // script: 'https://static.hotjar.com/c/hotjar-',
+        // version: 6,
+        // async: 1,
       },
 
       // Full story Analytics (only one tag can be set)
@@ -191,6 +239,8 @@ export default {
         host: 'fullstory.com',
         script: 'edge.fullstory.com/s/fs.js',
         namespace: 'FS',
+        // You can also override the loader snippet (advanced)
+        // loader: '(function(m,n,e,t,l,o,g,y){...})(...)',
       },
 
       // Unbounce conversion analytics
@@ -198,14 +248,19 @@ export default {
       unbounce: {
         enabled: true, // or false
         // You can set a custom location or use the default one for unbounce
-        script: 'd3pkntwtp2ukl5.cloudfront.net/uba.js'
+        script: 'd3pkntwtp2ukl5.cloudfront.net/uba.js',
+        // You can also override the goal pushed to _ubaq (raw arguments array)
+        // goal: '["trackGoal", "convert"]',
       },
 
       // TikTok Pixel Analytics (only one tag can be set)
       tiktok: {
         id: 1000000,
         // You can set a custom location or use the default one for TikTok
-        script: 'analytics.tiktok.com/i18n/pixel/events.js'
+        script: 'analytics.tiktok.com/i18n/pixel/events.js',
+        // You can also override the registered pixel methods and the page call
+        // methods: ['page', 'track', 'identify', '...'],
+        // page: 'ttq.page()',
       },
 
       // SimpleAnalytics
@@ -221,7 +276,10 @@ export default {
          * @see https://docs.simpleanalytics.com/proxy
          */
         script: 'https://example.com/proxy.js',
-        noScript: 'https://example.com/simple/noscript.gif'
+        noScript: 'https://example.com/simple/noscript.gif',
+        // You can also toggle the script tag attributes
+        // async: true,
+        // defer: true,
       },
 
       // Posthog
@@ -237,6 +295,9 @@ export default {
         //
         // If you need support for more options, you will need to configure PostHog manually.
         config: {},
+
+        // You can also override the loader snippet (advanced)
+        // loader: '!function(t,e){...}(document,window.posthog||[]);',
       },
 
       // Plausible
@@ -252,6 +313,8 @@ export default {
          * @see https://plausible.io/docs/proxy/introduction
          */
         script: 'example.com/js/script.js',
+        // You can also toggle the script tag `defer` attribute
+        // defer: true,
       },
     })
   ],

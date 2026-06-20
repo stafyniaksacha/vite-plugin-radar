@@ -1,5 +1,6 @@
 import type { HtmlTagDescriptor } from 'vite'
-import type { GoogleTagManagerDefaultProperty, GoogleTagManagerOptions, GoogleTagManagerProperty } from './types'
+import type { GoogleTagManagerOptions } from './types'
+import { defaults } from './default-values'
 
 declare global {
   interface Window {
@@ -7,46 +8,21 @@ declare global {
   }
 }
 
-const defaultOptions: GoogleTagManagerDefaultProperty = {
-  gtmBase: 'https://www.googletagmanager.com/gtm.js',
-  nsBase: 'https://www.googletagmanager.com/ns.html',
-}
-
 /// https://developers.google.com/tag-manager/quickstart
 function injectTag(options: GoogleTagManagerOptions): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
-  let properties: GoogleTagManagerProperty[] = []
 
-  if (Array.isArray(options)) {
-    properties.push(
-      ...options.map(options => ({
-        ...defaultOptions,
-        ...options,
-      })),
-    )
-  }
-  else {
-    properties.push({
-      ...defaultOptions,
-      ...options,
-    })
-  }
-
-  properties = properties.filter(property => Boolean(property.id))
+  const properties = (Array.isArray(options) ? options : [options])
+    .map(property => ({ ...defaults, ...property }))
+    .filter(property => Boolean(property.id))
 
   if (!properties.length)
     return tags
 
   let template = ''
 
-  // inject dataLayer tp window object
-  template += 'window.dataLayer = window.dataLayer || [];\n'
-
-  // tag gtm.start event
-  template += 'window.dataLayer.push({'
-  template += '\'gtm.start\': new Date().getTime(),'
-  template += 'event:\'gtm.js\''
-  template += '});\n'
+  // inject dataLayer to window object and tag the gtm.start event
+  template += properties[0].loader
 
   tags.push({
     tag: 'script',
@@ -60,7 +36,7 @@ function injectTag(options: GoogleTagManagerOptions): HtmlTagDescriptor[] {
       tag: 'script',
       attrs: {
         src: `${property.gtmBase}?id=${property.id}${environmentAttachment}`,
-        async: true,
+        async: property.async,
       },
     })
     tags.push({

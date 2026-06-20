@@ -1,5 +1,6 @@
 import type { HtmlTagDescriptor } from 'vite'
-import type { FacebookPixel, FacebookPixelOption } from './types'
+import type { FacebookPixelOption } from './types'
+import { defaults } from './default-values'
 
 declare global {
   interface Window {
@@ -7,26 +8,17 @@ declare global {
   }
 }
 
-const PixelBase = 'https://connect.facebook.net/en_US/fbevents.js'
-const NoScriptBase = 'https://www.facebook.com/tr'
-
 function injectTag(options: FacebookPixelOption): HtmlTagDescriptor[] {
   const tags: HtmlTagDescriptor[] = []
-  let properties: FacebookPixel[] = []
 
-  if (Array.isArray(options)) {
-    properties.push(
-      ...options,
-    )
-  }
-  else {
-    properties.push(options)
-  }
-
-  properties = properties.filter(property => Boolean(property.id))
+  const properties = (Array.isArray(options) ? options : [options])
+    .filter(property => Boolean(property.id))
+    .map(property => ({ ...defaults, ...property }))
 
   if (!properties.length)
     return tags
+
+  const [{ script, event }] = properties
 
   /// https://developers.facebook.com/docs/facebook-pixel/implementation
   let template = ''
@@ -39,13 +31,13 @@ function injectTag(options: FacebookPixelOption): HtmlTagDescriptor[] {
   template += 'n.queue=[];t=b.createElement(e);t.async=!0;'
   template += 't.src=v;s=b.getElementsByTagName(e)[0];'
   template += 's.parentNode.insertBefore(t,s)}(window, document,\'script\','
-  template += `'${PixelBase}');`
+  template += `'${script}');`
 
   for (const property of properties) {
     template += `fbq('init', '${property.id}');`
-    noscriptTemplate += `<img height="1" width="1" style="display:none" src="${NoScriptBase}?id=${property.id}&ev=PageView&noscript=1"/>\n`
+    noscriptTemplate += `<img height="1" width="1" style="display:none" src="${property.noScript}?id=${property.id}&ev=PageView&noscript=1"/>\n`
   }
-  template += 'fbq(\'track\', \'PageView\');'
+  template += `fbq('track', '${event}');`
 
   tags.push({
     tag: 'script',
