@@ -1,36 +1,20 @@
 import type { HtmlTagDescriptor, Plugin, ResolvedConfig } from 'vite'
-import type { BaiduTongjiOptions } from './baidu-tongji'
-import type { FacebookPixelOption } from './facebook-pixel'
-import type { FullStoryOptions } from './full-story'
-import type { GoogleAnaliticsOptions } from './google-analytics'
-import type { GoogleTagManagerOptions } from './google-tag-manager'
-import type { HotjarOptions } from './hotjar'
-import type { LinkedinInsightOptions } from './linkedin-insight'
-import type { MicrosoftAdvertisingOptions } from './microsoft-advertising'
-import type { MicrosoftClarityOptions } from './microsoft-clarity'
-import type { PlausibleAnalyticsOptions } from './plausible'
-import type { PostHogAnalyticsOptions } from './posthog'
-import type { SimpleAnalyticsOptions } from './simple-analytics'
-import type { TikTokPixelOptions } from './tiktok-pixel'
-import type { UnbounceOptions } from './unbounce'
-import type { VKRetargetingOption } from './vk-retargeting'
-import type { YandexMetricaOptions } from './yandex-metrica'
-import injectBaiduTongji from './baidu-tongji'
-import injectPixel from './facebook-pixel'
-import injectFullStory from './full-story'
-import injectGoogleAnalytics from './google-analytics'
-import injectGoogleTagManager from './google-tag-manager'
-import injectHotjar from './hotjar'
-import injectLinkedinInsight from './linkedin-insight'
-import injectMicrosoftAdvertising from './microsoft-advertising'
-import injectMicrosoftClarity from './microsoft-clarity'
-import injectPlausible from './plausible'
-import injectPosthog from './posthog'
-import injectSimpleAnalytics from './simple-analytics'
-import injectTikTokPixel from './tiktok-pixel'
-import injectUnbounce from './unbounce'
-import injectRetargeting from './vk-retargeting'
-import injectYandexMetrica from './yandex-metrica'
+import type { BaiduTongjiOptions } from './providers/baidu-tongji'
+import type { FacebookPixelOption } from './providers/facebook-pixel'
+import type { FullStoryOptions } from './providers/full-story'
+import type { GoogleAnaliticsOptions } from './providers/google-analytics'
+import type { GoogleTagManagerOptions } from './providers/google-tag-manager'
+import type { HotjarOptions } from './providers/hotjar'
+import type { LinkedinInsightOptions } from './providers/linkedin-insight'
+import type { MicrosoftAdvertisingOptions } from './providers/microsoft-advertising'
+import type { MicrosoftClarityOptions } from './providers/microsoft-clarity'
+import type { PlausibleAnalyticsOptions } from './providers/plausible'
+import type { PostHogAnalyticsOptions } from './providers/posthog'
+import type { SimpleAnalyticsOptions } from './providers/simple-analytics'
+import type { TikTokPixelOptions } from './providers/tiktok-pixel'
+import type { UnbounceOptions } from './providers/unbounce'
+import type { VKRetargetingOption } from './providers/vk-retargeting'
+import type { YandexMetricaOptions } from './providers/yandex-metrica'
 
 export interface VitePluginRadarOptions {
   enableDev?: boolean
@@ -52,24 +36,53 @@ export interface VitePluginRadarOptions {
   plausible?: PlausibleAnalyticsOptions
 }
 
+type InjectorKey = Exclude<keyof VitePluginRadarOptions, 'enableDev'>
+
+interface InjectorEntry {
+  key: InjectorKey
+  // defaults to Boolean(value) when omitted
+  enabled?: (value: any) => boolean
+  load: () => Promise<{ default: (options: any) => HtmlTagDescriptor[] }>
+}
+
+// Per-entry generic ties `key` to the option/injector types so each entry is
+// type-checked at definition time, while the registry stays a homogeneous list.
+function defineInjector<K extends InjectorKey>(entry: {
+  key: K
+  enabled?: (value: NonNullable<VitePluginRadarOptions[K]>) => boolean
+  load: () => Promise<{ default: (options: NonNullable<VitePluginRadarOptions[K]>) => HtmlTagDescriptor[] }>
+}): InjectorEntry {
+  return entry as InjectorEntry
+}
+
+// Order matters: HTML tags are injected in this sequence. Keep it stable.
+// Exported so tests can spy on the lazy `load` calls.
+export const INJECTORS: InjectorEntry[] = [
+  defineInjector({ key: 'analytics', load: () => import('./providers/google-analytics') }),
+  defineInjector({ key: 'gtm', load: () => import('./providers/google-tag-manager') }),
+  defineInjector({ key: 'pixel', load: () => import('./providers/facebook-pixel') }),
+  defineInjector({ key: 'retargeting', load: () => import('./providers/vk-retargeting') }),
+  defineInjector({ key: 'tongji', load: () => import('./providers/baidu-tongji') }),
+  defineInjector({ key: 'linkedin', load: () => import('./providers/linkedin-insight') }),
+  defineInjector({ key: 'metrica', load: () => import('./providers/yandex-metrica') }),
+  defineInjector({ key: 'microsoft', load: () => import('./providers/microsoft-advertising') }),
+  defineInjector({ key: 'microsoftClarity', load: () => import('./providers/microsoft-clarity') }),
+  defineInjector({ key: 'hotjar', load: () => import('./providers/hotjar') }),
+  defineInjector({ key: 'fullStory', load: () => import('./providers/full-story') }),
+  defineInjector({
+    key: 'unbounce',
+    enabled: value => value === true || (typeof value === 'object' && value.enabled === true),
+    load: () => import('./providers/unbounce'),
+  }),
+  defineInjector({ key: 'tiktok', load: () => import('./providers/tiktok-pixel') }),
+  defineInjector({ key: 'simpleanalytics', load: () => import('./providers/simple-analytics') }),
+  defineInjector({ key: 'posthog', load: () => import('./providers/posthog') }),
+  defineInjector({ key: 'plausible', load: () => import('./providers/plausible') }),
+]
+
 export function VitePluginRadar({
   enableDev = false,
-  analytics,
-  gtm,
-  pixel,
-  linkedin,
-  tongji,
-  metrica,
-  microsoft,
-  microsoftClarity,
-  retargeting,
-  hotjar,
-  fullStory,
-  unbounce,
-  tiktok,
-  simpleanalytics,
-  posthog,
-  plausible,
+  ...options
 }: VitePluginRadarOptions): Plugin {
   let viteConfig: ResolvedConfig
 
@@ -81,61 +94,27 @@ export function VitePluginRadar({
       viteConfig = resolvedConfig
     },
 
-    transformIndexHtml() {
-      const tags: HtmlTagDescriptor[] = []
-
+    async transformIndexHtml() {
       if (viteConfig.command === 'serve' && !enableDev)
-        return tags
+        return []
 
-      if (analytics)
-        tags.push(...injectGoogleAnalytics(analytics))
+      const active = INJECTORS.filter((entry) => {
+        const value = options[entry.key]
 
-      if (gtm)
-        tags.push(...injectGoogleTagManager(gtm))
+        if (value == null)
+          return false
 
-      if (pixel)
-        tags.push(...injectPixel(pixel))
+        return entry.enabled ? entry.enabled(value) : Boolean(value)
+      })
 
-      if (retargeting)
-        tags.push(...injectRetargeting(retargeting))
+      // load only configured injectors; Promise.all keeps registry order
+      const groups = await Promise.all(active.map(async (entry) => {
+        const inject = (await entry.load()).default
 
-      if (tongji)
-        tags.push(...injectBaiduTongji(tongji))
+        return inject(options[entry.key])
+      }))
 
-      if (linkedin)
-        tags.push(...injectLinkedinInsight(linkedin))
-
-      if (metrica)
-        tags.push(...injectYandexMetrica(metrica))
-
-      if (microsoft)
-        tags.push(...injectMicrosoftAdvertising(microsoft))
-
-      if (microsoftClarity)
-        tags.push(...injectMicrosoftClarity(microsoftClarity))
-
-      if (hotjar)
-        tags.push(...injectHotjar(hotjar))
-
-      if (fullStory)
-        tags.push(...injectFullStory(fullStory))
-
-      if (unbounce && (unbounce === true || unbounce.enabled === true))
-        tags.push(...injectUnbounce(unbounce))
-
-      if (tiktok)
-        tags.push(...injectTikTokPixel(tiktok))
-
-      if (simpleanalytics)
-        tags.push(...injectSimpleAnalytics(simpleanalytics))
-
-      if (posthog)
-        tags.push(...injectPosthog(posthog))
-
-      if (plausible)
-        tags.push(...injectPlausible(plausible))
-
-      return tags
+      return groups.flat()
     },
   }
 }

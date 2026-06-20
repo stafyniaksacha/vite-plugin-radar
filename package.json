@@ -26,6 +26,7 @@
     "example:build": "pnpm --filter example build",
     "prepack": "unbuild",
     "build": "unbuild",
+    "test": "vitest run",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "release": "run-s lint release:*",
@@ -43,6 +44,7 @@
     "standard-version": "^9.5.0",
     "typescript": "^6.0.3",
     "unbuild": "^3.6.1",
-    "vite": "catalog:"
+    "vite": "catalog:",
+    "vitest": "^4.1.9"
   }
 }
