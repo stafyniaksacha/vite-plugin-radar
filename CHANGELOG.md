@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.11.0](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.10.1...v0.11.0) (2026-06-20)
+
+
+### Features
+
+* add default values for various analytics providers and enhance configuration options ([400a91c](https://github.com/stafyniaksacha/vite-plugin-radar/commit/400a91c3bcbc9888d05406b59bf01719346eae0d))
+* add vite 8 support ([da07bb9](https://github.com/stafyniaksacha/vite-plugin-radar/commit/da07bb9fd220ecdf496ba6340a017df2359f9bc2))
+
+
+### Bug Fixes
+
+* fix ya metrica init ([#47](https://github.com/stafyniaksacha/vite-plugin-radar/issues/47)) ([2d965c8](https://github.com/stafyniaksacha/vite-plugin-radar/commit/2d965c8b132fc430bd0b2ce262d3879bcbf1b673))
+* posthog config breaking when config is not present ([#49](https://github.com/stafyniaksacha/vite-plugin-radar/issues/49)) ([6ca7f4f](https://github.com/stafyniaksacha/vite-plugin-radar/commit/6ca7f4ff66f5fa4e103fff8b57a142e9914e1d24))
+* update google-analytics config ([#46](https://github.com/stafyniaksacha/vite-plugin-radar/issues/46)) ([f3786e9](https://github.com/stafyniaksacha/vite-plugin-radar/commit/f3786e94c331c43ececddbad1fb133312331db63))
+* updating google-analytics config to include debug_mode ([#48](https://github.com/stafyniaksacha/vite-plugin-radar/issues/48)) ([31188d0](https://github.com/stafyniaksacha/vite-plugin-radar/commit/31188d07ffe48119c4ec01ad386ca3b64a78d020))
+
 ### [0.10.1](https://github.com/stafyniaksacha/vite-plugin-radar/compare/v0.10.0...v0.10.1) (2025-07-22)
 
 
