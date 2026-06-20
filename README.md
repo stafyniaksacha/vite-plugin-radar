@@ -3,13 +3,13 @@
 Analytics loader for vite that support Google Analytics, Google Tag Manager, Facebook Pixel,
 Linkedin Insight, Yandex Metrica, Baidu Tongji, Microsoft Advertising and Unbounce
 
-### Install
+## Install
 
 ```sh
 npm i --save-dev vite-plugin-radar # yarn add -D vite-plugin-radar
 ```
 
-### Add it to vite.config.js
+## Add it to vite.config.js
 
 ```ts
 // vite.config.js
